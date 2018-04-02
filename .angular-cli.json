@@ -5,6 +5,7 @@
   },
   "apps": [
     {
+      "name": "app1",
       "root": "src",
       "outDir": "dist",
       "assets": [
@@ -12,7 +13,32 @@
         "favicon.ico"
       ],
       "index": "index.html",
-      "main": "main.ts",
+      "main": "main-evanto-blog.ts",
+      "polyfills": "polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "app",
+      "styles": [
+        "styles.css"
+      ],
+      "scripts": [],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    },
+    {
+      "name": "app2",
+      "root": "src",
+      "outDir": "dist2",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main-angular-blog.ts",
       "polyfills": "polyfills.ts",
       "test": "test.ts",
       "tsconfig": "tsconfig.app.json",
@@ -55,8 +81,8 @@
   },
   "defaults": {
     "serve": {
-			"port": 3001
-		},
+      "port": 3001
+    },
     "styleExt": "css",
     "class": {
       "spec": false
