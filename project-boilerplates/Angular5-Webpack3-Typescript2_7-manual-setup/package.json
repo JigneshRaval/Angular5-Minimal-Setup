@@ -1,0 +1,36 @@
+{
+	"name": "angular5_webpack3_typescript2_7",
+	"version": "1.0.0",
+	"description": "A simple Angular 5 boilderplate using Webpack 3.10.0, Typescript 2.7.2 and Bootstrap 4",
+	"scripts": {
+		"start": "webpack -w & nodemon ./server.js",
+		"server": "nodemon ./server.js",
+		"webpack": "webpack --config webpack.config.js -w",
+		"tsc": "tsc"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@angular/common": "^5.2.7",
+		"@angular/compiler": "^5.2.7",
+		"@angular/core": "^5.2.7",
+		"@angular/forms": "^5.2.7",
+		"@angular/http": "^5.2.7",
+		"@angular/platform-browser": "^5.2.7",
+		"@angular/platform-browser-dynamic": "^5.2.7",
+		"@angular/router": "^5.2.7",
+		"core-js": "^2.5.3",
+		"express": "^4.16.2",
+		"rxjs": "^5.5.6",
+		"zone.js": "^0.8.20"
+	},
+	"devDependencies": {
+		"@angular/compiler-cli": "^5.2.8",
+		"@types/node": "^9.4.6",
+		"awesome-typescript-loader": "^3.5.0",
+		"tslint": "^5.9.1",
+		"typescript": "^2.7.2",
+		"uglifyjs-webpack-plugin": "^1.2.2",
+		"webpack": "3.10.0"
+	}
+}

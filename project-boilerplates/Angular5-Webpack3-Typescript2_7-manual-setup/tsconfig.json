@@ -1,0 +1,36 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "es2015",
+        "moduleResolution": "node",
+        "declaration": true, // triggers the generation of the typings *.d.ts files, that enable IDE Intellisense
+        "sourceMap": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "removeComments": false,
+        "noImplicitAny": false,
+        "skipLibCheck": true,
+        "baseUrl": ".", // This must be specified if "paths" is.
+        "paths": {
+            "@src/components/*": [
+                "src/components/*"
+            ]
+        },
+        "outDir": "dist",
+        "lib": [
+            "es2015",
+            "dom"
+        ]
+    },
+    "include": [
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ],
+    "typeRoots": [
+        "../node_modules/@types"
+    ],
+    "compileOnSave": false,
+    "buildOnSave": false
+}

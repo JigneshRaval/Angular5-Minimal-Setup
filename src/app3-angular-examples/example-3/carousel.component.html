@@ -1,0 +1,52 @@
+<!-- START : Carousel -->
+<div class="carousel__container {{carouselBrandClass}}" data-slide-index="0" aria-live="polite" id="{{_uuid}}">
+
+	<!-- START :: Carousel slides container -->
+	<div class="carousel__slides" [ngStyle]="{'height': _carouselHeight +'px'}">
+
+		<!-- START :: Carousel slide -->
+		<ng-content></ng-content>
+		<!-- END :: Carousel slide -->
+
+	</div>
+	<!-- END :: Carousel slides container -->
+
+	<!-- START :: Carousel controls like Play, Pause, Dots etc... -->
+	<div class="carousel__controls" attr.aria-label="{{ariaLabels.carouselControlSectionLabel}}" aria-hidden="false" *ngIf="carouselDataItems?.length > 1">
+		<!-- Next/Previous Controls -->
+		<button type="button" *ngIf="hasArrows" class="carousel-btn carousel-btn__previous" attr.aria-label="{{ariaLabels.previousSlideButtonLabel}}"
+		 data-dir="_L" (click)="slideLeft($event)" value="{{ariaLabels.previousSlideButtonLabel}}">
+			<i class="icon-arrow-back"></i>
+		</button>
+
+		<!-- Play/Pause Controls -->
+		<button type="button" *ngIf="!isPlaying" class="carousel-btn carousel-btn__play" attr.aria-label="{{ariaLabels.playButtonLabel}}"
+		 data-dir="_R" (click)="playSlideShow($event)" value="{{ariaLabels.playButtonLabel}}">
+			<i class="icon-play"></i> Play
+		</button>
+		<button type="button" *ngIf="isPlaying" class="carousel-btn carousel-btn__pause" attr.aria-label="{{ariaLabels.pauseButtonLabel}}"
+		 (click)="pauseSlideShow($event)" value="{{ariaLabels.pauseButtonLabel}}">
+			<i class="icon-pause"></i> Pause
+		</button>
+
+
+		<!-- Dots navigation -->
+		<ul class="carousel__dots" role="tablist" (click)="goToSlide($event)" (keydown)="onKeyDownGoToSlide($event)">
+			<li *ngFor="let slide of carouselDataItems; let i = index" role="presentation">
+				<a href="JavaScript:void(0);" title="{{ariaLabels.dotNavButtonLabel}} {{i + 1}}" class="carousel__dot" attr.data-slide-index="{{i}}"
+				 role="tab" aria-selected="false" attr.aria-controls="{{_uuid}}_tabpanel_0_{{i}}" id="{{_uuid}}_tab_0_{{i}}">
+					<span class="visuallyhidden">Slide {{i + 1}}</span>
+				</a>
+			</li>
+		</ul>
+
+		<!-- Next/Previous Controls -->
+		<button type="button" *ngIf="hasArrows" class="carousel-btn carousel-btn__next" attr.aria-label="{{ariaLabels.nextSlideButtonLabel}}"
+		 data-dir="_R" (click)="slideRight($event)" value="{{ariaLabels.nextSlideButtonLabel}}">
+			<i class="icon-arrow-forward"></i>
+		</button>
+	</div>
+	<!-- END :: Carousel controls like Play, Pause, Dots etc... -->
+
+</div>
+<!-- END : Carousel -->

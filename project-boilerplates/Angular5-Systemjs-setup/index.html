@@ -1,0 +1,57 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Angular 5 using System.js</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS 4 -->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/css/main.css" />
+
+    <!-- Bootstrap 4 JS -->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>-->
+
+    <!--=================
+        js
+    =====================-->
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+
+    <!-- Angular 4 : load the dependencies -->
+    <!--<script src="https://unpkg.com/core-js@2.5.3/client/shim.min.js"></script>
+    <script src="https://unpkg.com/zone.js@0.8.20/dist/zone.js"></script>
+    <script src="https://unpkg.com/zone.js/dist/long-stack-trace-zone.js"></script>
+    <script src="https://unpkg.com/reflect-metadata@0.1.12/Reflect.js"></script>
+    <script src="https://unpkg.com/typescript@2.4.2/lib/typescript.js"></script>-->
+
+    <!-- load our angular app with systemjs -->
+    <!--<script src="https://unpkg.com/systemjs@0.19.39/dist/system.js"></script>-->
+
+    <!-- Angular 4 : load the dependencies -->
+    <script src="./shim.min.js"></script>
+    <script src="./typescript.js"></script>
+    <script src="./zone.js"></script>
+    <script src="https://unpkg.com/zone.js/dist/long-stack-trace-zone.js"></script>
+    <script src="./Reflect.js"></script>
+
+
+    <!-- load our angular app with systemjs -->
+    <script src="./system-0.19.39.js"></script>
+    <script src="systemjs.config.js"></script>
+    <script>
+        System.import('app').catch(function (err) { console.error(err); });
+    </script>
+</head>
+
+<body>
+    <my-app></my-app>
+</body>
+
+</html>
