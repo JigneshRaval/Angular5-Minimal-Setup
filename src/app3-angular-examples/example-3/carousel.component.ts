@@ -5,8 +5,8 @@ import 'rxjs/add/operator/take';
 
 @Component({
     selector: 'carousel-component',
-    templateUrl: 'src/components/example-3/carousel.component.html',
-    styleUrls: ['src/components/example-3/carousel.css']
+    templateUrl: './carousel.component.html',
+    styleUrls: ['./carousel.css']
 })
 export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
 

@@ -15,22 +15,8 @@ import { Component, Renderer2, OnInit, ViewChild, ElementRef, HostListener } fro
         <button (click)="sampleFunc()">Run change detection 2</button>
         <hr />
         <a role="menuitem" (click)="sampleFunc($event)"
-        onclick="if(isUACrossEnabled()){
-            try{
-                ga('trackerUa1.send','event', 'Internal Link' ,'Link click','LinkId:PRTL_BENE_YOUR_PROFILE LinkDest:/web/sdfsd/beneficiaries'); alert('try success'); }
-            catch(err){alert('error');}
-            }
-            if(isUAClientEnabled()){
-                try{
-                    if(isGTMEnabled()){
-                        dataLayer.push({'event':'UPointLinkEvent','linkCategory':'Internal Link','linkAction':'Link Click','linkLabel':'LinkId:PRTL_BENE_YOUR_PROFILE LinkDest:/web/hmorg/beneficiaries'}); alert('try success gtm enabled client');
-                    }else{
-                        ga('trackerUa2.send','event', 'Internal Link' ,'Link click','LinkId:PRTL_BENE_YOUR_PROFILE LinkDest:/web/sdfsdf/beneficiaries'); alert('else gtm enabled false');
-                    }
-                }
-                catch(err){alert('error');}
-            }setTimeout(function() {document.location.href = href;}, 100);return false;"
-            href="https://www.google.com/web/sdfsd/beneficiaries?linkId=PRTL_BENE_YOUR_PROFILE&amp;technicalNameForLink=PRTL_BENE_YOUR_PROFILE&amp;userFriendlyNameForLink=This is common beneficiary link under \'Your Profile\' menu&amp;domain=Ben-CM&amp;baseClientIndicator=Base" tabindex="0" id="yui_3_4_0_2_1516255479507_104">Beneficiaries</a>
+        onclick="alert('test')"
+            href="https://www.google.com/" tabindex="0" id="yui_3_4_0_2_1516255479507_104">Beneficiaries</a>
     </div>
     `
 })

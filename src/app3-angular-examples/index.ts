@@ -1,9 +1,6 @@
 // Bootstrap static template
-import { HeaderComponent } from './bootstrap-template/header/header.component';
-import { JumbotronComponent } from './bootstrap-template/jumbotron/jumbotron.component';
-import { AlbumCardComponent } from './bootstrap-template/content/album-cards/album-card.component';
-import { FooterComponent } from './bootstrap-template/footer/footer.component';
-import { BootstrapTemplateComponent } from './bootstrap-template/index';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 // Example 1 [ Tab Component ]
 import { Example1TabComponent } from './example-1/tab.component';
@@ -22,16 +19,30 @@ import { PageVisibilityService } from './example-3/page-visibility.service';
 import { DialogComponent } from './example-dynamic-dialog/dialog.component';
 import { DialogAnchorDirective } from './example-dynamic-dialog/dialog-anchor.directive';
 
+import  DynamicComponent from './example-dynamic-component/dynamic.component';
+import  MainDynamicComponent  from './example-dynamic-component/dynamic-component.main';
+import  HelloWorldComponent  from './example-dynamic-component/hello-world.component';
+import  WorldHelloComponent  from './example-dynamic-component/world-hello.component';
+
 import { TemplateDrivenForm1Component } from './example-forms/template-driven-form-1/template-driven-form-1.component';
+
+import { NgTemplateNgForComponent } from './ng-templates-examples/ng-template-ngfor.component';
+
+import { GenericListComponent } from './generic-list/generic-list.component';
+import { ListDemo } from './generic-list/generic-list-demo.component';
+import { PrimeTemplate } from './generic-list/generic-list.directive';
+
+
+import { ExamplesSidebarComponent } from './components/index';
+
+import { DuplicateFormFields } from './duplicate-form-fields/duplicate-form-fields.component'
 
 // Export all Components, Entry Components, Directives, Pipes and Services
 export const MY_EXAMPLES = {
-    "COMPONENTS" : [
+    "COMPONENTS": [
+        ExamplesSidebarComponent,
         HeaderComponent,
-		JumbotronComponent,
-		AlbumCardComponent,
 		FooterComponent,
-		BootstrapTemplateComponent,
 		Example1TabComponent,
 		Example1TabContentComponent,
 		Example1TabMainComponent,
@@ -43,7 +54,15 @@ export const MY_EXAMPLES = {
         HeroJobAdComponent,
         HeroProfileComponent,
         Example2MainComponent,
-        TemplateDrivenForm1Component
+        TemplateDrivenForm1Component,
+        MainDynamicComponent,
+        DynamicComponent,
+        HelloWorldComponent,
+        WorldHelloComponent,
+        GenericListComponent,
+		ListDemo,
+        PrimeTemplate,
+        DuplicateFormFields
     ],
     "ENTRY_COMPONENTS": [HeroJobAdComponent, HeroProfileComponent, DialogComponent],
     "DIRECTIVES": [DialogAnchorDirective],

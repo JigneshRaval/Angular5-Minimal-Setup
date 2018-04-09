@@ -5,7 +5,7 @@ import 'rxjs/add/operator/take';
 
 @Component({
     selector: 'dev-carousel',
-    templateUrl: 'app/components/carousel/dev-carousel.component.html'
+    templateUrl: './dev-carousel.component.html'
 })
 export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
 

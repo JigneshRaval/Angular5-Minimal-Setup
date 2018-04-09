@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import  position from './observe-mouse-move'
+//import  position from './observe-mouse-move'
 
 @Component({
     selector: 'observable-examples-component',
@@ -12,7 +12,7 @@ import  position from './observe-mouse-move'
 export class ObservableExamplesComponent {
     test;
     constructor() {
-        this.test = position.subscribe(data => console.log('Data:', data));
-        console.log('position :', position, this.test);
+        /* this.test = position.subscribe(data => console.log('Data:', data));
+        console.log('position :', position, this.test); */
     }
 }

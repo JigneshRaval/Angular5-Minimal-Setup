@@ -5,6 +5,9 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { HomePage } from './pages/homepage.component'
+import { ContactPage } from './pages/contact-us.component'
+import { ROUTING } from './app.routing'
 
 // All Components, Entry Components, Directives, Pipes and Services exported from index.ts
 import { MY_EXAMPLES } from './index';
@@ -12,6 +15,8 @@ import { MY_EXAMPLES } from './index';
 @NgModule({
     declarations: [
         AppComponent,
+        ContactPage,
+        HomePage,
         MY_EXAMPLES.COMPONENTS,
         MY_EXAMPLES.DIRECTIVES,
         MY_EXAMPLES.PIPES
@@ -20,6 +25,7 @@ import { MY_EXAMPLES } from './index';
         BrowserModule,
         FormsModule,
         HttpModule,
+        ROUTING,
         RouterModule
     ],
     providers: [MY_EXAMPLES.SERVICES],

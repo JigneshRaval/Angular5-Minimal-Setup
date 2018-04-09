@@ -26,7 +26,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     `
 })
 export class IframeComponent implements AfterViewInit {
-    iframeUrl = '';
+    iframeUrl;
     htmlSnippet = '<iframe width="300" height="100" src="https://tutorialedge.net/typescript/angular/angular-modules-tutorial/" style="border: 1px solid green; width: 300px; height: 150px;"></iframe>';
 
     dangerouseUrl = 'https://tutorialedge.net/typescript/angular/angular-modules-tutorial/';

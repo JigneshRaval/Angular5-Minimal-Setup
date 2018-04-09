@@ -45,7 +45,8 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.css",
+        "//demo.productionready.io/main.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

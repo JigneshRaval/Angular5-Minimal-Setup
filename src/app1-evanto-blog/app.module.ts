@@ -9,19 +9,12 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ROUTING } from './app.routing';
 
-import { GenericListComponent } from './components/generic-list/generic-list.component';
-import { ListDemo } from './components/generic-list/generic-list-demo.component';
-import { PrimeTemplate } from './components/generic-list/generic-list.directive';
-
 @NgModule({
 	declarations: [
 		RootComponent,
 		HomeComponent,
 		LoginComponent,
-		SignupComponent,
-		GenericListComponent,
-		ListDemo,
-		PrimeTemplate
+		SignupComponent
 	],
 	imports: [
 		BrowserModule,
