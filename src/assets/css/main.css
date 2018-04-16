@@ -33,14 +33,6 @@ samp {
     width: 1px;
 }
 
-.jumbotron {
-    background-color: #FFFFFF;
-    margin: 0;
-}
-.bd-sidenav li {
-    display: block;
-}
-.bd-sidenav li a {
-    display: block;
-    padding: 5px 10px;
+.uk-container.uk-container-expand {
+    padding: 0;
 }

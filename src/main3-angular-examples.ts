@@ -3,9 +3,11 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app3-angular-examples/app.module';
 import { environment } from './environments/environment';
+// import { uikit } from './app3-angular-examples/shared/vendor';
+
 
 if (environment.production) {
-	enableProdMode();
+  enableProdMode();
 }
 
 const bootstrapPromise = platformBrowserDynamic().bootstrapModule(AppModule);

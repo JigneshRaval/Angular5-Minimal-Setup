@@ -1,0 +1,30 @@
+<h1 class="uk-article-title">
+    <a class="uk-link-reset" href="">Heading</a>
+</h1>
+
+<article class="uk-article">
+
+    <h2 class="uk-text-lead">
+        Using
+        <code>trackBy</code>
+
+    </h2>
+
+    <p class="uk-article-meta">Written by
+        <a href="#">Super User</a> on 12 April 2012. Posted in
+        <a href="#">Blog</a>
+    </p>
+
+    <pre>
+<code ngNonBindable>
+&lt;ul>
+    &lt;li *ngFor="let song of songs; trackBy: trackSongByFn">&#123;&#123;song.name}}&lt;/li>
+&lt;/ul>
+
+trackSongByFn(index, song) &#123;
+    return index; // or song.id
+}
+</code>
+</pre>
+
+</article>

@@ -1,3 +1,5 @@
+import { HomePage } from './pages/homepage.component';
+
 // Bootstrap static template
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -33,9 +35,11 @@ import { ListDemo } from './generic-list/generic-list-demo.component';
 import { PrimeTemplate } from './generic-list/generic-list.directive';
 
 
-import { ExamplesSidebarComponent } from './components/index';
+import { ExamplesSidebarComponent } from './components/component.index';
 
 import { DuplicateFormFields } from './duplicate-form-fields/duplicate-form-fields.component'
+
+import { AngularTipsComponent } from './components/angular-tips.component';
 
 // Export all Components, Entry Components, Directives, Pipes and Services
 export const MY_EXAMPLES = {
@@ -62,10 +66,23 @@ export const MY_EXAMPLES = {
         GenericListComponent,
 		ListDemo,
         PrimeTemplate,
-        DuplicateFormFields
+        DuplicateFormFields,
+        NgTemplateNgForComponent,
+        AngularTipsComponent
     ],
     "ENTRY_COMPONENTS": [HeroJobAdComponent, HeroProfileComponent, DialogComponent],
     "DIRECTIVES": [DialogAnchorDirective],
     "PIPES": [],
     "SERVICES" : [AdService, PageVisibilityService]
 }
+
+
+
+// Export all Components, Entry Components, Directives, Pipes and Services
+export const ROUTE_COMPONENTS = [
+    { path: '', component: HomePage },
+    { path: 'home', component: HomePage },
+    { path: 'adbanner', component: Example2MainComponent },
+    { path: 'tabs', component: Example1TabMainComponent },
+    { path: 'tips', component: AngularTipsComponent }
+]
