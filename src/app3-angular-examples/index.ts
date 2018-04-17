@@ -5,8 +5,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 
 // Example 1 [ Tab Component ]
-import { Example1TabComponent } from './example-1/tab.component';
-import { Example1TabContentComponent } from './example-1/tab-content.component';
+/* import { Example1TabComponent } from './example-1/tab.component';
+import { Example1TabContentComponent } from './example-1/tab-content.component'; */
 import { Example1TabMainComponent } from './example-1/tab-main.component';
 
 // Example 2 [ AdBanner Dynamic Component ]
@@ -41,15 +41,18 @@ import { DuplicateFormFields } from './duplicate-form-fields/duplicate-form-fiel
 
 import { AngularTipsComponent } from './components/angular-tips.component';
 
+import { ExampleObservableComponent } from './example-observable/example-observable.component';
+import { ExampleObservableService } from './example-observable/example-observable.service';
+
 // Export all Components, Entry Components, Directives, Pipes and Services
 export const MY_EXAMPLES = {
     "COMPONENTS": [
         ExamplesSidebarComponent,
         HeaderComponent,
 		FooterComponent,
-		Example1TabComponent,
+		/* Example1TabComponent,
 		Example1TabContentComponent,
-		Example1TabMainComponent,
+		Example1TabMainComponent, */
 		CarouselComponent,
 		Example3CarouselMainComponent,
 		DialogComponent,
@@ -68,12 +71,13 @@ export const MY_EXAMPLES = {
         PrimeTemplate,
         DuplicateFormFields,
         NgTemplateNgForComponent,
-        AngularTipsComponent
+        AngularTipsComponent,
+        ExampleObservableComponent
     ],
     "ENTRY_COMPONENTS": [HeroJobAdComponent, HeroProfileComponent, DialogComponent],
     "DIRECTIVES": [DialogAnchorDirective],
     "PIPES": [],
-    "SERVICES" : [AdService, PageVisibilityService]
+    "SERVICES" : [AdService, PageVisibilityService, ExampleObservableService]
 }
 
 

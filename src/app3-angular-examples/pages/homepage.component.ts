@@ -10,7 +10,7 @@ import { DialogAnchorDirective } from '../example-dynamic-dialog/dialog-anchor.d
             <h2>Home page</h2>
 
 
-            <div class="uk-container">
+            <div>
                 <!-- <bootstrap-template-component></bootstrap-template-component> -->
 
                 <example1-tab-main-component></example1-tab-main-component>
@@ -23,6 +23,8 @@ import { DialogAnchorDirective } from '../example-dynamic-dialog/dialog-anchor.d
                 <template-driven-form-1-component></template-driven-form-1-component>
 <duplicate-form-fields></duplicate-form-fields>
                 <list-demo></list-demo>
+
+                <example-observable-list></example-observable-list>
             </div>
     `
 })

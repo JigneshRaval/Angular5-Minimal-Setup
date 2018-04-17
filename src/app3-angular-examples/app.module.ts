@@ -11,6 +11,7 @@ import { ROUTING } from './app.routing'
 
 // All Components, Entry Components, Directives, Pipes and Services exported from index.ts
 import { MY_EXAMPLES } from './index';
+import { TabsModule } from './example-1/tab.module';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,8 @@ import { MY_EXAMPLES } from './index';
         FormsModule,
         HttpModule,
         ROUTING,
-        RouterModule
+        RouterModule,
+        TabsModule
     ],
     providers: [MY_EXAMPLES.SERVICES],
     entryComponents: [MY_EXAMPLES.ENTRY_COMPONENTS],
