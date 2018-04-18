@@ -21,10 +21,10 @@ import { PageVisibilityService } from './example-3/page-visibility.service';
 import { DialogComponent } from './example-dynamic-dialog/dialog.component';
 import { DialogAnchorDirective } from './example-dynamic-dialog/dialog-anchor.directive';
 
-import  DynamicComponent from './example-dynamic-component/dynamic.component';
-import  MainDynamicComponent  from './example-dynamic-component/dynamic-component.main';
-import  HelloWorldComponent  from './example-dynamic-component/hello-world.component';
-import  WorldHelloComponent  from './example-dynamic-component/world-hello.component';
+import DynamicComponent from './example-dynamic-component/dynamic.component';
+import MainDynamicComponent from './example-dynamic-component/dynamic-component.main';
+import HelloWorldComponent from './example-dynamic-component/hello-world.component';
+import WorldHelloComponent from './example-dynamic-component/world-hello.component';
 
 import { TemplateDrivenForm1Component } from './example-forms/template-driven-form-1/template-driven-form-1.component';
 
@@ -43,20 +43,29 @@ import { AngularTipsComponent } from './components/angular-tips.component';
 
 import { ExampleObservableComponent } from './example-observable/example-observable.component';
 import { ExampleObservableService } from './example-observable/example-observable.service';
+import { ExampleObservableSubject } from './example-observable/example-observable-subject.component';
+import * as ObservableTimerExample from './example-observable/example-obervable-timer';
+
+console.log('ObservableTimerExample:', ObservableTimerExample);
+
+import { NamedRouterComponent } from './examples-router/named-router-outlets/named-router-outlet.component';
+import { ChildRoute1Component } from './examples-router/named-router-outlets/child-route-1.component';
+import { ChildRoute2Component } from './examples-router/named-router-outlets/child-route-2.component';
+import { ChildRoute3Component } from './examples-router/named-router-outlets/child-route-3.component';
 
 // Export all Components, Entry Components, Directives, Pipes and Services
 export const MY_EXAMPLES = {
     "COMPONENTS": [
         ExamplesSidebarComponent,
         HeaderComponent,
-		FooterComponent,
+        FooterComponent,
 		/* Example1TabComponent,
 		Example1TabContentComponent,
 		Example1TabMainComponent, */
-		CarouselComponent,
-		Example3CarouselMainComponent,
-		DialogComponent,
-		AdBannerComponent,
+        CarouselComponent,
+        Example3CarouselMainComponent,
+        DialogComponent,
+        AdBannerComponent,
         AdDirective,
         HeroJobAdComponent,
         HeroProfileComponent,
@@ -67,17 +76,22 @@ export const MY_EXAMPLES = {
         HelloWorldComponent,
         WorldHelloComponent,
         GenericListComponent,
-		ListDemo,
+        ListDemo,
         PrimeTemplate,
         DuplicateFormFields,
         NgTemplateNgForComponent,
         AngularTipsComponent,
-        ExampleObservableComponent
+        ExampleObservableComponent,
+        ExampleObservableSubject,
+        NamedRouterComponent,
+        ChildRoute1Component,
+        ChildRoute2Component,
+        ChildRoute3Component
     ],
     "ENTRY_COMPONENTS": [HeroJobAdComponent, HeroProfileComponent, DialogComponent],
     "DIRECTIVES": [DialogAnchorDirective],
     "PIPES": [],
-    "SERVICES" : [AdService, PageVisibilityService, ExampleObservableService]
+    "SERVICES": [AdService, PageVisibilityService, ExampleObservableService]
 }
 
 
@@ -87,6 +101,16 @@ export const ROUTE_COMPONENTS = [
     { path: '', component: HomePage },
     { path: 'home', component: HomePage },
     { path: 'adbanner', component: Example2MainComponent },
-    { path: 'tabs', component: Example1TabMainComponent },
-    { path: 'tips', component: AngularTipsComponent }
+    {
+        path: 'tips', component: AngularTipsComponent,
+        children: [
+            { path: '', component: ChildRoute1Component, outlet: 'tab1-content' },
+            { path: 'tab-item-1', component: ChildRoute1Component, outlet: 'tab1-content' },
+            { path: 'tab-item-2', component: ChildRoute2Component, outlet: 'tab2-content' },
+            { path: 'tab-item-3', component: ChildRoute3Component, outlet: 'tab3-content' }
+        ]
+    },
+    {
+        path: 'tabs', component: Example1TabMainComponent
+    },
 ]

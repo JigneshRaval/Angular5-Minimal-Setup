@@ -25,6 +25,10 @@ import { DialogAnchorDirective } from '../example-dynamic-dialog/dialog-anchor.d
                 <list-demo></list-demo>
 
                 <example-observable-list></example-observable-list>
+
+                <example-observable-subject></example-observable-subject>
+
+                <named-router-component></named-router-component>
             </div>
     `
 })

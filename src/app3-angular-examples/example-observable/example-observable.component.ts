@@ -42,8 +42,14 @@ export class ExampleObservableComponent implements OnInit {
         })
     }
 }
-
+/**
+ * Observable Examples
+ * ------------------------------------------
+ */
 // Creating an observable yourself
+
+// Example 1
+// ==========================================
 // As you can see in the example observables are created by using the new Observable() call,
 // then subscribed to by an observer, executed by calling the next() and disposed by calling unsubscribe().
 const simpleObservable = new Observable((observer) => {
