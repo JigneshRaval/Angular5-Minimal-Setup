@@ -15,7 +15,7 @@ import { MY_EXAMPLES } from './index';
 import { TabsModule } from './example-1/tab.module';
 
 import { ArticlesModule } from './example-crud/articles.module';
-import { LazyRouteExampleModule } from './examples-router/lazy-router/lazy-router.module';
+// import { LazyRouteExampleModule } from './examples-router/lazy-router/lazy-router.module';
 
 @NgModule({
     declarations: [
@@ -35,7 +35,7 @@ import { LazyRouteExampleModule } from './examples-router/lazy-router/lazy-route
         RouterModule,
         TabsModule,
         ArticlesModule,
-        LazyRouteExampleModule
+        // LazyRouteExampleModule
     ],
     providers: [MY_EXAMPLES.SERVICES],
     entryComponents: [MY_EXAMPLES.ENTRY_COMPONENTS],
