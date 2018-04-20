@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -12,6 +13,9 @@ import { ROUTING } from './app.routing'
 // All Components, Entry Components, Directives, Pipes and Services exported from index.ts
 import { MY_EXAMPLES } from './index';
 import { TabsModule } from './example-1/tab.module';
+
+import { ArticlesModule } from './example-crud/articles.module';
+import { LazyRouteExampleModule } from './examples-router/lazy-router/lazy-router.module';
 
 @NgModule({
     declarations: [
@@ -26,9 +30,12 @@ import { TabsModule } from './example-1/tab.module';
         BrowserModule,
         FormsModule,
         HttpModule,
+        HttpClientModule,
         ROUTING,
         RouterModule,
-        TabsModule
+        TabsModule,
+        ArticlesModule,
+        LazyRouteExampleModule
     ],
     providers: [MY_EXAMPLES.SERVICES],
     entryComponents: [MY_EXAMPLES.ENTRY_COMPONENTS],

@@ -7,7 +7,10 @@ const app = express();
 //const url = 'mongodb://localhost/blogDb';
 // Type 3: Persistent datastore with automatic loading
 var Datastore = require('nedb')
-	, db = new Datastore({ filename: './src/data/users.db', autoload: true });
+	, db = {};
+
+db.app1 = new Datastore({ filename: './src/data/users.db', autoload: true });
+db.articles = new Datastore({ filename: './src/data/articles.db', autoload: true });
 
 // const User = require('./model/user');
 
@@ -35,9 +38,12 @@ app.use(bodyParser.urlencoded({ extended: true }))
 	next(err);
 }) */
 
+// API for APP 1
+//================================
+// User Login using Login form
 app.post('/api/user/login', (req, res) => {
 	console.log("POST Req:", req.body, req.body.username);
-	db.find({ username: req.body.username, password: req.body.password }).sort({ name: -1 }).exec(function (err, user) {
+	db.app1.find({ username: req.body.username, password: req.body.password }).sort({ name: -1 }).exec(function (err, user) {
 		if (err) {
 			return err;
 		}
@@ -56,6 +62,7 @@ app.post('/api/user/login', (req, res) => {
 	});
 })
 
+// Create new user using Signup form
 app.post('/api/user/create', (req, res) => {
 
 	var user = {
@@ -65,7 +72,7 @@ app.post('/api/user/create', (req, res) => {
 		today: new Date()
 	};
 
-	db.insert(user, function (err, newDoc) {
+	db.app1.insert(user, function (err, newDoc) {
 		// Callback is optional
 		// newDoc is the newly inserted document, including its _id
 		// newDoc has no key called notToBeSaved since its value was undefined
@@ -83,6 +90,31 @@ app.post('/api/user/create', (req, res) => {
 app.get('/api/user/login', (req, res, next) => {
 	return res.status(200).json({
 		status: 'You have successfully logged in.'
+	});
+});
+
+// API for APP 2 [ Angular Examples ]
+//================================
+
+app.post('/api/articles/create', (req, res) => {
+	db.articles.insert(req.body, function (err, newDoc) {
+		// Callback is optional
+		// newDoc is the newly inserted document, including its _id
+		// newDoc has no key called notToBeSaved since its value was undefined
+		if (err) {
+			return err;
+		}
+		return res.status(200).json({
+			status: 'success',
+			message: 'You have successfully created Article.',
+			data: newDoc
+		});
+	});
+});
+
+app.get('/api/articles', (req, res) => {
+	return res.status(200).json({
+		status: 'All articles are listed successfully.'
 	});
 });
 

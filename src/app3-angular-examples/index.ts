@@ -53,6 +53,8 @@ import { ChildRoute1Component } from './examples-router/named-router-outlets/chi
 import { ChildRoute2Component } from './examples-router/named-router-outlets/child-route-2.component';
 import { ChildRoute3Component } from './examples-router/named-router-outlets/child-route-3.component';
 
+import { ArticleService } from './example-crud/article.service';
+
 // Export all Components, Entry Components, Directives, Pipes and Services
 export const MY_EXAMPLES = {
     "COMPONENTS": [
@@ -107,8 +109,12 @@ export const ROUTE_COMPONENTS = [
             { path: '', component: ChildRoute1Component, outlet: 'tab1-content' },
             { path: 'tab-item-1', component: ChildRoute1Component, outlet: 'tab1-content' },
             { path: 'tab-item-2', component: ChildRoute2Component, outlet: 'tab2-content' },
-            { path: 'tab-item-3', component: ChildRoute3Component, outlet: 'tab3-content' }
+            { path: 'tab-item-3', component: ChildRoute3Component, outlet: 'tab3-content' },
+            {path: 'lazy', loadChildren: './examples-router/lazy-router/lazy-router.module#LazyModule'}
         ]
+    },
+    {
+         path: 'lazy', loadChildren: './examples-router/lazy-router/lazy-router.module#LazyModule'
     },
     {
         path: 'tabs', component: Example1TabMainComponent

@@ -12,6 +12,7 @@ import { Component, ViewChild } from '@angular/core';
                     <examples-sidebar></examples-sidebar>
                 </div>
                 <div class="uk-width-1-1 uk-padding">
+                <a routerLink="lazy/load-me">Lazy load Router</a>
                     <router-outlet></router-outlet>
                 </div>
             </div>
