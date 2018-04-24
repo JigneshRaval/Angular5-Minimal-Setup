@@ -4,25 +4,51 @@
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+// Components
 import { LazyParentComponent } from './lazy-parent.component';
 import { LazyChildComponent } from './lazy-child.component';
 
-import { Routes, RouterModule } from '@angular/router';
+// Routes
+import { routes } from './lazy-router.routing';
+import { RouterModule } from '@angular/router';
 
-const routes: Routes = [
-    { path: '', component: LazyParentComponent, pathMatch: 'full' },
-    { path: 'lazy', component: LazyChildComponent, pathMatch: 'full' }
+/*
+import { RouterModule, Routes } from '@angular/router';
+
+export const routes: Routes = [
+  { path: '', component: LazyParentComponent, pathMatch: 'full' },
+  { path: 'lazy-child', component: LazyChildComponent, pathMatch: 'full' },
+  { path: 'lazy-confirm', component: LazyChildComponent }
 ];
+*/
 
 @NgModule({
   imports: [
-    CommonModule,
+    //CommonModule,
     RouterModule.forChild(routes)
   ],
   declarations: [
     LazyParentComponent,
-    LazyChildComponent,
-    RouterModule
+    LazyChildComponent
   ]
 })
 export class LazyRouteExampleModule { }
+
+/**
+ * You can also create seperate file and put following code in it.
+ *
+ * // lazy-router.routing.ts
+ * import { Routes } from '@angular/router';
+
+import { LazyParentComponent } from './lazy-parent.component';
+import { LazyChildComponent } from './lazy-child.component';
+
+export const routes: Routes = [
+    { path: '', component: LazyParentComponent, pathMatch: 'full' },
+    { path: 'lazy-child', component: LazyChildComponent, pathMatch: 'full' },
+    { path: 'lazy-confirm', component: LazyChildComponent }
+];
+
+ * then import this file in lazy-router.module.ts like : import { routes } from './lazy-router.routing';
+ */

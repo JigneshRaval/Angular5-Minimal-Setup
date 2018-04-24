@@ -9,7 +9,9 @@ import { DialogAnchorDirective } from '../example-dynamic-dialog/dialog-anchor.d
 
             <h2>Home page</h2>
 
-
+            <a routerLink="lazy">Lazy Parent Router</a>
+            <a routerLink="lazy/lazy-child">Lazy Child Router</a>
+            <a routerLink="lazy/confirm">Lazy load Router</a>
             <div>
                 <!-- <bootstrap-template-component></bootstrap-template-component> -->
 

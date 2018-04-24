@@ -109,8 +109,7 @@ export const ROUTE_COMPONENTS = [
             { path: '', component: ChildRoute1Component, outlet: 'tab1-content' },
             { path: 'tab-item-1', component: ChildRoute1Component, outlet: 'tab1-content' },
             { path: 'tab-item-2', component: ChildRoute2Component, outlet: 'tab2-content' },
-            { path: 'tab-item-3', component: ChildRoute3Component, outlet: 'tab3-content' },
-            {path: 'lazy', loadChildren: './examples-router/lazy-router/lazy-router.module#LazyRouteExampleModule'}
+            { path: 'tab-item-3', component: ChildRoute3Component, outlet: 'tab3-content' }
         ]
     },
     {

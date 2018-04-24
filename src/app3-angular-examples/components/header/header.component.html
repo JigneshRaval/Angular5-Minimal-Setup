@@ -4,12 +4,12 @@
         <ul class="uk-navbar-nav">
             <li class="uk-active"><a href="#">Active</a></li>
             <li>
-                <a href="#">Parent</a>
+                <a href="#">Lazy Router</a>
                 <div class="uk-navbar-dropdown">
                     <ul class="uk-nav uk-navbar-dropdown-nav">
-                        <li class="uk-active"><a href="#">Active</a></li>
-                        <li><a href="#">Item</a></li>
-                        <li><a href="#">Item</a></li>
+                        <li class="uk-active"><a routerLink="lazy">Lazy</a></li>
+                        <li><a routerLink="lazy/lazy-child">Lazy Child</a></li>
+                        <li><a routerLink="lazy/lazy-confirm">Lazy Child Confirm</a></li>
                     </ul>
                 </div>
             </li>
