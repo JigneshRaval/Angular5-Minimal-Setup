@@ -113,9 +113,12 @@ export const ROUTE_COMPONENTS = [
         ]
     },
     {
-         path: 'lazy', loadChildren: './examples-router/lazy-router/lazy-router.module#LazyRouteExampleModule'
+        path: 'lazy', loadChildren: './examples-router/lazy-router/lazy-router.module#LazyRouteExampleModule'
     },
     {
         path: 'tabs', component: Example1TabMainComponent
+    },
+    {
+        path: 'observable-async', component: ExampleObservableComponent
     },
 ]

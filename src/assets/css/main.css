@@ -2,17 +2,52 @@ body {
     font-size: 16px;
     line-height: 1.5;
 }
-
+img { display: block; margin: 0 auto; max-width: 100%; }
 pre {
-    display: block;
-    padding: 1em;
-    margin: 0 0 10px;
-    color: #333;
-    word-break: break-all;
-    word-wrap: break-word;
-    background-color: #f5f5f5;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+	border: 1px dashed #333;
+	padding: 1em 2em;
+	font-family: Consolas,monospace;
+	background-color: #EEE;
+	overflow-x: scroll;
+	font-size: 14px;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+pre {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 1em auto;
+    border: 1px dashed #333;
+    width: 100%;
+    padding: 1em 1.5em;
+    font-family: Inconsolata, Consolas, monospace, sans-serif;
+    font-size: 1em;
+	line-height: 1.5;
+    overflow: auto;
+    background: #F7FAFB;
+    border-radius: 3px;
+	position:relative;
+}
+code {
+	background-color: #EEE;
+    font-family: Consolas,monospace;
+    border: solid 1px #CCC;
+    padding: 0 6px;
+    border-radius: 3px;
+    font-size: 14px;
+}
+.hljs {
+    background-color: transparent;
+}
+pre code { background-color: transparent; padding: 0; display: block; border: 0px solid; }
+pre:after {
+	content: "<CODE>";
+	position: absolute;
+	top:0;
+	right: 0;
+	padding: 5px 15px;
+	background: #999;
+	color: #FFF;
 }
 
 code,

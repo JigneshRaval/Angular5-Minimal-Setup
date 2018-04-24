@@ -24,6 +24,14 @@ declare var UIkit: any;
                         <li><a routerLink="/contact">contact us</a></li>
                     </ul>
                 </li>
+                <li class="uk-parent">
+                    <a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> RxJs Observable Examples</a>
+                    <ul class="uk-nav-sub">
+                        <li><a routerLink="/observable-async">Observable with Async Pipe</a></li>
+                        <li><a routerLink="/adbanner">Ad Banner</a></li>
+                        <li><a routerLink="/contact">contact us</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     `

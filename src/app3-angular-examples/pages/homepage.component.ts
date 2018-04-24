@@ -9,21 +9,21 @@ import { DialogAnchorDirective } from '../example-dynamic-dialog/dialog-anchor.d
 
             <h2>Home page</h2>
 
-            <a routerLink="lazy">Lazy Parent Router</a>
-            <a routerLink="lazy/lazy-child">Lazy Child Router</a>
-            <a routerLink="lazy/confirm">Lazy load Router</a>
             <div>
-                <!-- <bootstrap-template-component></bootstrap-template-component> -->
-
                 <example1-tab-main-component></example1-tab-main-component>
+
                 <example2-main-component></example2-main-component>
+
                 <!--<example3-carousel-main-component></example3-carousel-main-component>-->
 
                 <div dialogAnchor></div>
+
                 <div class="open-button" (click)='openDialogBox()'>Open dialog box</div>
 
                 <template-driven-form-1-component></template-driven-form-1-component>
-<duplicate-form-fields></duplicate-form-fields>
+
+                <duplicate-form-fields></duplicate-form-fields>
+
                 <list-demo></list-demo>
 
                 <example-observable-list></example-observable-list>

@@ -6,17 +6,7 @@ import { ExampleObservableService } from './example-observable.service';
 
 @Component({
     selector: 'example-observable-list',
-    template: `
-        <h2>Example Observable List ( Using Async pipe )</h2>
-        <ul class="user__list" *ngIf="(users$ | async)?.length">
-            <li *ngFor="let user of users$ | async">{{user.name}}</li>
-        </ul>
-
-        <h2>Example Observable List ( Using manually subscribing to observable service )</h2>
-        <ul class="user__list" *ngIf="users.length">
-            <li *ngFor="let user of users">{{user.name}}</li>
-        </ul>
-    `
+    templateUrl: './example-observable.component.html'
 })
 export class ExampleObservableComponent implements OnInit {
     public users$: Observable<any[]>;

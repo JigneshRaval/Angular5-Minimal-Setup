@@ -1,0 +1,222 @@
+<h2>Example Observable List ( Using Async pipe )</h2>
+<ul class="user__list" *ngIf="(users$ | async)?.length">
+    <li *ngFor="let user of users$ | async">{{user.name}}</li>
+</ul>
+
+<h2>Example Observable List ( Using manually subscribing to observable service )</h2>
+<ul class="user__list" *ngIf="users.length">
+    <li *ngFor="let user of users">{{user.name}}</li>
+</ul>
+
+<!-- START : Code Example -->
+<ul uk-tab>
+    <li><a href="#">example-observable.service.ts</a></li>
+    <li><a href="#">example-observable.component.ts</a></li>
+    <li><a href="#">example-observable-subject.component.ts</a></li>
+    <li><a href="#">example-obervable-timer.ts</a></li>
+    <li><a href="#">Usage</a></li>
+</ul>
+<ul class="uk-switcher uk-margin">
+    <li>
+        <pre><code ngNonBindable>
+// Ref. : https://medium.com/@luukgruijs/understanding-creating-and-subscribing-to-observables-in-angular-426dbf0b04a3
+
+// example-observable.service.ts
+
+import &#123; Observable } from 'rxjs/Observable';
+import &#123; Injectable } from '@angular/core';
+import &#123; Http, Response } from '@angular/http';
+import 'rxjs/add/operator/map';
+
+@Injectable()
+export class ExampleObservableService &#123;
+
+    constructor(public http: Http) &#123;
+
+    public fetchUsers() &#123;
+        // We have now created a simple service with a fetchUsers method that returns an observable.
+        return this.http.get('https://jsonplaceholder.typicode.com/users').map((res: Response) => res.json());
+    }
+}
+</code></pre>
+    </li>
+    <li>
+        <pre><code ngNonBindable>
+// Ref : https://medium.com/@luukgruijs/understanding-creating-and-subscribing-to-observables-in-angular-426dbf0b04a3
+import &#123; Component, OnInit } from '@angular/core';
+import &#123; Observable } from 'rxjs/Observable';
+
+import &#123; ExampleObservableService } from './example-observable.service';
+
+@Component(&#123;
+    selector: 'example-observable-list',
+    templateUrl: './example-observable.component.html'
+})
+export class ExampleObservableComponent implements OnInit &#123;
+    public users$: Observable&lt;any[]>;
+    public users: any[] = [];
+
+    constructor(private exampleObservableService: ExampleObservableService) &#123; }
+
+    ngOnInit() &#123;
+        // Method 1 : Using 'async' pipe
+        this.users$ = this.exampleObservableService.fetchUsers();
+
+        // Method 2 : using manual subscription
+        // We subscribe to the observable ourselves using the actual subscribe() method.
+        // This can be handy if you would first like to do something with the data before displaying it.
+        // The downside is that you have to manage the subscription yourself.
+        this.exampleObservableService.fetchUsers().subscribe((users) => &#123;
+
+            // do stuff with our data here.
+            // ....
+            // asign data to our class property in the end
+            // so it will be available to our template
+            this.users = users
+        })
+    }
+}
+/**
+ * Observable Examples
+ * ------------------------------------------
+ */
+// Creating an observable yourself
+
+// Example 1
+// ==========================================
+// As you can see in the example observables are created by using the new Observable() call,
+// then subscribed to by an observer, executed by calling the next() and disposed by calling unsubscribe().
+const simpleObservable = new Observable((observer) => &#123;
+
+    // Observable execution
+    observer.next('Value 1: Hi');
+    observer.next('Value 2: Hello');
+    observer.complete();
+})
+
+// Subscribe to observer
+simpleObservable.subscribe((value) => console.log(value));
+
+// Subscribe to observer
+// Note : To unsubscribe from observable you need to store it in any variable and then use .unsubscribe method on that variable
+let simpleObsSubscription = simpleObservable.subscribe((value) => console.log(value));
+
+console.log('simpleObsSubscription :', simpleObsSubscription);
+
+// dispose the observable
+simpleObsSubscription.unsubscribe();
+
+// Note : Remember, observables are lazy. If you don’t subscribe nothing is going to happen. It’s good to know that when you subscribe to an observer, each call of subscribe() will trigger it’s own independent setup for that given observable. Subscribe calls are not shared among multiple subscribers to the same observable.
+
+</code></pre>
+    </li>
+    <li>
+        <pre><code ngNonBindable>
+// https://medium.com/front-end-hacking/creating-an-observable-with-angular-part-ii-the-4-different-types-3d8fd2835850
+import &#123; Component } from '@angular/core';
+
+// 4 types of Subject that RxJS provides. The main difference between them is how they react to subscribe().
+// Subject
+// BehaviorSubject
+// ReplaySubject
+// AsyncSubject
+
+// When you subscribe to a Subject, you get every event that this Subject emits after you have subscribed (including complete) as shown on the figure.
+import &#123; Subject } from 'rxjs/Subject';
+
+// A BehaviorSubject behaves like a Subject, except the Observer also receives the last event that occurred before the subscription.
+// It then receives all the events occurring after the subscription, like for a regular Subject.
+import &#123; BehaviorSubject } from 'rxjs/BehaviorSubject';
+
+// With a ReplaySubject, the Observer receives all past events when it subscribes.
+// It then receives all the events occurring after the subscription, like for a regular Subject.
+import &#123; ReplaySubject } from 'rxjs/ReplaySubject';
+
+// This one has a peculiar behavior. AsyncSubject will wait for complete to emit the last event and then the complete event.
+import &#123; AsyncSubject } from 'rxjs/AsyncSubject';
+
+
+
+@Component(&#123;
+    selector: 'example-observable-subject',
+    template: `
+        &lt;h1 *ngIf="type">
+            &#123;&#123;type.name}}
+        &lt;/h1>
+
+        &lt;div class="container">
+            &lt;div>
+                &lt;button (click)="start()">Start&lt;/button>
+                &lt;p [ngClass]="style">&#123;&#123;init}}&lt;/p>
+            &lt;/div>
+            &lt;div>
+                &lt;button (click)="subscribe()">Subscribe&lt;/button>
+                &lt;p *ngFor="let value of valuesFromSubscription">&#123;&#123;value}}&lt;/p>
+            &lt;/div>
+        &lt;/div>
+    `
+})
+export class ExampleObservableSubject &#123;
+    type = ReplaySubject;
+
+    init: number;
+    valuesFromSubscription: number[] = [];
+    style = 'none';
+
+    $subject = new this.type&lt;number>();
+    // $subject = new this.type&lt;number>(0); for BehaviorSubject case
+    public subscribe() &#123;
+        this.$subject.subscribe((value: number) => &#123;
+            this.valuesFromSubscription.push(value);
+        });
+    }
+
+    public start() &#123;
+        this.init = 0;
+        this.style = 'show';
+
+        // First time iteration, then use interval to increment the number and emit next event
+        this.iterate();
+
+        const interval = setInterval(() => &#123;
+            this.iterate();
+            if (this.init >= 4) &#123;
+                setTimeout(() => &#123;
+                    clearInterval(interval);
+                    this.$subject.complete();
+                    this.style = 'none';
+                }, 1900);
+            }
+        }, 2000);
+    }
+
+    private iterate() &#123;
+        this.init++;
+        this.$subject.next(this.init);
+    }
+}
+</code></pre>
+    </li>
+    <li>
+        <pre><code ngNonBindable>
+// Using timer from observable
+import &#123; timer } from 'rxjs/observable/timer';
+
+const t = timer(1000);
+
+t.subscribe(value => console.log(value));
+
+// How to import this file
+// import * as ObservableTimerExample from './example-observable/example-obervable-timer';
+// console.log('ObservableTimerExample:', ObservableTimerExample);
+</code></pre>
+    </li>
+    <li>
+        <pre><code ngNonBindable>
+&lt;example-observable-list>&lt;/example-observable-list>
+
+&lt;example-observable-subject>&lt;/example-observable-subject>
+</code></pre>
+    </li>
+</ul>
+<!-- END : Code Example -->
