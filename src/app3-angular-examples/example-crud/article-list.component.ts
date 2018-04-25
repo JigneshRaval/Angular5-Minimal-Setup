@@ -6,6 +6,10 @@ import { ArticleService } from './article.service';
     template: `
         <h1>Article List Component</h1>
         <button (click)="createArticle($event)">Create Article</button>
+
+        <button (click)="getCarBrands($event)">Car Router ( Get Car Brands )</button>
+
+        <button (click)="getCarModels($event)">Car Router ( Get Car Models )</button>
     `,
     providers: [ArticleService]
 })
@@ -19,5 +23,13 @@ export class ArticleListComponent {
 
     createArticle(event) {
         this.articleService.createArticle().subscribe(article => console.log(article));
+    }
+
+    getCarBrands(event) {
+        this.articleService.sGetCarBrands().subscribe(cars => console.log('Car Brand :', cars));
+    }
+
+    getCarModels(event) {
+        this.articleService.sGetCarModels().subscribe(cars => console.log('Car Models :', cars));
     }
 }

@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 var cors = require('cors');
 const app = express();
-
 //const mongoose = require('mongoose');
 //const url = 'mongodb://localhost/blogDb';
 // Type 3: Persistent datastore with automatic loading
@@ -96,7 +95,11 @@ app.get('/api/user/login', (req, res, next) => {
 // API for APP 2 [ Angular Examples ]
 //================================
 
-app.post('/api/articles/create', (req, res) => {
+var routes = require('./routes/index');
+
+app.use('/api', routes(db.articles));
+
+/* app.post('/api/articles/create', (req, res) => {
 	db.articles.insert(req.body, function (err, newDoc) {
 		// Callback is optional
 		// newDoc is the newly inserted document, including its _id
@@ -116,6 +119,6 @@ app.get('/api/articles', (req, res) => {
 	return res.status(200).json({
 		status: 'All articles are listed successfully.'
 	});
-});
+}); */
 
 app.listen(3005, () => console.log(`Blog server running on port 3005!`))

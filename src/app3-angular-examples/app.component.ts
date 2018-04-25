@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 
-/* declare var jquery: any;
+declare var jquery: any;
 declare var $: any;
-declare var hljs: any; */
+declare var hljs: any;
 
 @Component({
     selector: 'app-root',
@@ -26,7 +26,6 @@ declare var hljs: any; */
 export class AppComponent {
 
     changeOfRoutes() {
-        alert('Hi router changed');
         // Highlight code syntax
         if ($) {
             $('pre code').each(function (i, block) {
