@@ -133,6 +133,34 @@ import 'rxjs/Rx';
     },
 
 6. when you are using "npm link" to link one app into another ( https://github.com/jvandemo/generator-angular2-library )
+
+  Note : Remove so many Warnings regarding "can not resolve *.ts" file
+
+```
+WARNING in ./~/apollo-client/index.js
+(Emitted value instead of an instance of Error) Cannot find source file '../../src/index.ts': Error: Can't resolve '../../src/index.ts' in 'C:\Dev\app_ma
+nager\ui\node_modules\apollo-client'
+ @ ./~/react-apollo/lib/browser.js 10:22-46
+ @ ./src/index.tsx
+ @ multi (webpack)-dev-server/client?http://localhost:8080 ./src/index.tsx
+
+WARNING in ./~/apollo-client/transport/networkInterface.js
+(Emitted value instead of an instance of Error) Cannot find source file '../../../src/transport/networkInterface.ts': Error: Can't resolve '../../../src/
+transport/networkInterface.ts' in 'C:\Dev\app_manager\ui\node_modules\apollo-client\transport'
+ @ ./~/apollo-client/index.js 1:0-98
+ @ ./~/react-apollo/lib/browser.js
+ @ ./src/index.tsx
+ @ multi (webpack)-dev-server/client?http://localhost:8080 ./src/index.tsx
+
+WARNING in ./~/apollo-client/transport/batchedNetworkInterface.js
+(Emitted value instead of an instance of Error) Cannot find source file '../../../src/transport/batchedNetworkInterface.ts': Error: Can't resolve '../../
+../src/transport/batchedNetworkInterface.ts' in 'C:\Dev\app_manager\ui\node_modules\apollo-client\transport'
+ @ ./~/apollo-client/index.js 2:0-115
+ @ ./~/react-apollo/lib/browser.js
+ @ ./src/index.tsx
+ @ multi (webpack)-dev-server/client?http://localhost:8080 ./src/index.tsx
+ ```
+
 	ng serve --preserve-symlinks
 
 		If you are using an Angular CLI application to consume your library, make sure to set up a path mapping in /src/tsconfig.app.json of your consuming application (not your library):
