@@ -99,7 +99,7 @@ import 'rxjs/Rx';
 4. this.__zone_symbol__clickfalse[0].callback()
 
 
-5. Using Npm Link : common.js in C:\jr\__UPointNext\NextGen-v3\upoint-style-guide-app-linked\node_modules\@angular\cli\models\webpack-configs\common.js
+5. Using Npm Link : common.js in C:\jr\style-guide-app-linked\node_modules\@angular\cli\models\webpack-configs\common.js
 
 	Update this code with below code: ------------------
 	resolve: {
@@ -326,7 +326,7 @@ function localStorageSupported() {
 	You can import it directly in you app.module:
 	import './rxjs-operators';
 
-	C:\jr\__UPointNext\NextGen-v3\ui-core-widget\src\components\al-popover\al-popover.component.ts
+	C:\jr\ui-core-widget\src\components\al-popover\al-popover.component.ts
 		import { Observable } from 'rxjs/Observable';
 		import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 		import { Subject } from 'rxjs/Subject';
@@ -420,9 +420,9 @@ tmp=C:\jr\Temp
 /uicore:assetspath=http://localhost:7575
 
 23: Comemu
--cur_console:b -cur_console:d:C:\jr\__UPointNext\NextGen-v3\upoint-base-app -cur_console:t:"Base App" cmd.exe /k "%ConEmuBaseDir%\CmdInit.cmd" -run cd..
+-cur_console:b -cur_console:d:C:\jr\base-app -cur_console:t:"Base App" cmd.exe /k "%ConEmuBaseDir%\CmdInit.cmd" -run cd..
 
-> -cur_console:f -cur_console:d:C:\jr\__UPointNext\NextGen-v3\upoint-style-guide-app-linked -cur_console:t:"Styleguide App" cmd.exe /k "%ConEmuBaseDir%\CmdInit.cmd" -run cd..
+> -cur_console:f -cur_console:d:C:\jr\style-guide-app-linked -cur_console:t:"Styleguide App" cmd.exe /k "%ConEmuBaseDir%\CmdInit.cmd" -run cd..
 
 -cur_console:d:C:\Users\<UserName>\Documents\GitHub\react-todo-app -cur_console:t:ReactTodo-Server cmd.exe /k call npm start
 
@@ -449,3 +449,21 @@ Angular Optimization:
 	"ng build --prod --stats-json" in base app ( // Above command builds our application in prod mode and also,
 	// generates stats.json, and stores it in /dist/stats.json)
 	run "npm run bundle-report" or webpack-bundle-analyzer dist/stats.json
+
+26 How to import .JSON file in Angular and Typescript
+// Method 1 : Using import ( Using Wildcard Module Name )
+// Source : https://hackernoon.com/import-json-into-typescript-8d465beded79
+/* First Add following in typings.d.ts
+declare module "*.json" {
+    const value: any;
+    export default value;
+}
+
+Then, your code will work like charm!
+
+// Typescript
+// app.ts
+import * as data from './example.json';
+const word = (<any>data).name;
+console.log(word); // output 'testing'
+*/
