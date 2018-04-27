@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import "rxjs/Rx";
+// import "rxjs/Rx";
 // import 'rxjs/add/operator/toPromise';
 
 @Component({
     selector: 'list-view-component',
     template: `
-        <input type="text" [ngModel]="countries" />
+        <strong>Countries : </strong> <input type="text" [ngModel]="countries" />
         <ul>
             <li *ngFor="let country of countries; let i = index;">{{country.name}} = {{country.code}}</li>
         </ul>
     `
 })
 export class ListViewComponent {
-    private countryApiUrl = '../../../assets/data/country.json';
+    private countryApiUrl = '../../assets/data/country.json';
     private countries = [];
     constructor(private http: Http) { }
 
@@ -64,7 +64,9 @@ export class ListViewComponent {
         // Method 2
         // ==============================
         this.getCountries().then(data => {
-            this.countries = this.filterCountry('india', data);
+            let singleItem = this.filterCountry('india', data);
+            this.countries = singleItem;
+            console.log(this.countries);
         });
 
         console.log(this.countries);

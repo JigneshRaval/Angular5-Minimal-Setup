@@ -17,7 +17,7 @@ export class ArticleService {
     createArticle() {
         const payload = new HttpParams()
             .set(`articleTitle`, 'My first Article')
-            .set('articleCreatedDate', new Date())
+            .set('articleCreatedDate', new Date().toString())
             .set('articleContent', 'Content of Article')
             .set('articleImage', 'article.png');
 

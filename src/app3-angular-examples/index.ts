@@ -55,6 +55,12 @@ import { ChildRoute3Component } from './examples-router/named-router-outlets/chi
 
 import { ArticleService } from './example-crud/article.service';
 
+import { ListViewComponent } from './example-6/list-display.component';
+import { FilterListViewComponent } from './example-6/list-view.component';
+
+import { UpperCasePipe } from './pipes-example/uppercase.filter';
+import { SearchFilterPipe } from './pipes-example/search-filter-list.pipe';
+
 // Export all Components, Entry Components, Directives, Pipes and Services
 export const MY_EXAMPLES = {
     "COMPONENTS": [
@@ -88,11 +94,13 @@ export const MY_EXAMPLES = {
         NamedRouterComponent,
         ChildRoute1Component,
         ChildRoute2Component,
-        ChildRoute3Component
+        ChildRoute3Component,
+        ListViewComponent,
+        FilterListViewComponent
     ],
     "ENTRY_COMPONENTS": [HeroJobAdComponent, HeroProfileComponent, DialogComponent],
     "DIRECTIVES": [DialogAnchorDirective],
-    "PIPES": [],
+    "PIPES": [UpperCasePipe, SearchFilterPipe],
     "SERVICES": [AdService, PageVisibilityService, ExampleObservableService]
 }
 

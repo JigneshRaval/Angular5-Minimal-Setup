@@ -125,6 +125,37 @@ import * as $ from ‘jquery’;
 </article>
 <!-- END : Angular 4+ Tip -->
 
+<!-- START : Angular 4+ Tip -->
+<article class="uk-article">
+
+    <h2 class="uk-text-lead">How to import .JSON file in Angular and Typescript</h2>
+
+    <pre><code ngNonBindable>
+// How to import .JSON file in Angular and Typescript
+// Method 1 : Using import ( Using Wildcard Module Name )
+// Source : https://hackernoon.com/import-json-into-typescript-8d465beded79
+// 1. First Add following in typings.d.ts
+declare module "*.json" &#123;
+    const value: any;
+    export default value;
+}
+
+//2. Then, your code will work like charm!
+
+// Typescript
+// app.ts
+import * as data from './example.json';
+const word = (&lt;any>data).name;
+console.log(word); // output 'testing'
+
+// example.json
+&#123;
+    "name": "testing"
+}
+    </code></pre>
+</article>
+<!-- END : Angular 4+ Tip -->
+
 <!--
 
 ==========================================
