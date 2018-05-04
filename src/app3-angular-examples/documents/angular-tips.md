@@ -495,3 +495,26 @@ import * as data from './example.json';
 const word = (<any>data).name;
 console.log(word); // output 'testing'
 */
+
+## Error : Uncaught Error: Unexpected value '[object Object]' imported by the module 'CoreModule'. Please add a @NgModule annotation.
+    at syntaxError (compiler.es5.js:1694)
+    at compiler.es5.js:15398
+
+Uncaught Error: Unexpected value '[object Object]' imported by the module 'AppModule'. Please add a @NgModule annotation. to Uncaught Error: Unexpected value '[object Object]' imported by the module 'AppModule'. Please add a @NgModule annotation.
+
+```
+I had the same issue, found answer here: https://github.com/angular/angular-cli/wiki/stories-linked-library
+
+You need to edit /src/tsconfig.app.json in your project (not library!) and add:
+
+    "baseUrl": "",
+    "paths": {
+      "@angular/*": [
+        "../node_modules/@angular/*"
+      ]
+    },
+
+into compilerOptions object.
+
+ng serve --preserve-symlinks
+```

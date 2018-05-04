@@ -121,4 +121,27 @@ app.get('/api/articles', (req, res) => {
 	});
 }); */
 
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  dbo.createCollection("customers", function(err, res) {
+    if (err) throw err;
+    console.log("Collection created!");
+    db.close();
+  });
+});
+
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/mydb', function (err) {
+
+   if (err) throw err;
+
+   console.log('Successfully connected');
+
+});
+
 app.listen(3005, () => console.log(`Blog server running on port 3005!`))
