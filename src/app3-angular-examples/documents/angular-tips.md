@@ -571,7 +571,8 @@ For example, these are all valid:
 // ng eject will eject webpack.config.js for more customization
 // webpack.config.js
 
-const entryPoints = ["inline","polyfills","sw-register","styles","vendor","main","rxjs", "alight"];
+// const entryPoints = ["inline","polyfills","sw-register","styles","vendor","main","rxjs", "alight"];
+const entryPoints = ["inline", "polyfills", "rxjs", "lodash", "sw-register", "styles", "primeng", "vendor", "main"];
 
 "plugins": [
 	new CommonsChunkPlugin({
@@ -588,6 +589,20 @@ const entryPoints = ["inline","polyfills","sw-register","styles","vendor","main"
 			"main"
 		]
 	}),
+	new CommonsChunkPlugin({
+      "name": [
+        "lodash"
+      ],
+      "minChunks": (module) => {
+        console.log('lodash :::', module.resource, '====', module.resource && module.resource.startsWith(nodeModules + '\\lodash'));
+
+        return module.resource
+          && (module.resource.startsWith(nodeModules + '\\lodash') || module.resource.startsWith(nodeModules + '\\ng2-validation'));
+      },
+      "chunks": [
+        "main"
+      ]
+    }),
     new CommonsChunkPlugin({
 		"name": [
 			"vendor"
@@ -734,22 +749,123 @@ var path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  entry : {
-    person: './src/code-splitting-webpack/person-service.js',
-    car: './src/code-splitting-webpack/car-service.js'
-  },
-  output: {
-      filename: '[name].bundle.js',
-      path: path.resolve(__dirname, '../../dist')
-  },
-  plugins: [
-    new webpack.optimize.CommonsChunkPlugin({
-        name: 'lib',
-        minChunks: 2,
+	entry : {
+		person: './src/code-splitting-webpack/person-service.js',
+		car: './src/code-splitting-webpack/car-service.js'
+	},
+	devtool: "source-map",
+	output: {
+		filename: '[name].bundle.js',
+		path: path.resolve(__dirname, '../../dist')
+	},
+  	output: {
+        path: root('dist'),
         filename: '[name].js',
-    })
-  ]
+        sourceMapFilename: '[name].map',
+        chunkFilename: '[id].chunk.js',
+        pathinfo: true
+	},
+	resolve: {
+		extensions: ['', '.ts', '.js', '.json', '.css', '.html']
+	},
+	plugins: [
+		new webpack.optimize.CommonsChunkPlugin({
+			name: 'lib',
+			minChunks: 2,
+			filename: '[name].js',
+		})
+	]
 }
+```
+
+## Webpack config file examples
+
+### Example 1
+
+Soruce : [Vendor and code splitting in webpack 2](https://medium.com/@adamrackis/vendor-and-code-splitting-in-webpack-2-6376358f1923)
+```
+var path = require('path');
+var webpack = require('webpack');
+
+module.exports = {
+    entry: './reactStartup.js',
+    output: {
+        filename: 'bundle.js',
+        path: path.resolve(__dirname, 'dist')
+    },
+    resolve: {
+        alias: {
+            'simple-react-bootstrap': 'node_modules/simple-react-bootstrap/dist/simple-react-bootstrap.js',
+            'jscolor': 'util/jscolor.js'
+        },
+        modules: [
+            path.resolve('./'),
+            path.resolve('./node_modules'),
+        ]
+    },
+    module: {
+        loaders: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader',
+                query: {
+                    presets: ['react', 'es2015']
+                }
+            }
+        ]
+    }
+};
+```
+
+```
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+var path = require('path');
+var webpack = require('webpack');
+
+module.exports = {
+    entry: './reactStartup.js',
+    output: {
+        filename: 'bundle.js',
+        path: path.resolve(__dirname, 'dist')
+    },
+    resolve: {
+        alias: {
+            'simple-react-bootstrap': 'node_modules/simple-react-bootstrap/dist/simple-react-bootstrap.js',
+            'jscolor': 'util/jscolor.js'
+        },
+        modules: [
+            path.resolve('./'),
+            path.resolve('./node_modules'),
+        ]
+    },
+    module: {
+        loaders: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader',
+                query: {
+                    presets: ['react', 'es2015']
+                }
+            }
+        ]
+    },
+    plugins: [
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'static'
+        }),
+
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'node-static',
+            filename: 'node-static.js',
+            minChunks(module, count) {
+                var context = module.context;
+                return context && context.indexOf('node_modules') >= 0;
+            },
+        }),
+    ]
+};
 ```
 
 ## Helpful Links of Tutorials
@@ -757,3 +873,5 @@ module.exports = {
 [Angular CLI and OS Environment Variables](https://medium.com/@natchiketa/angular-cli-and-os-environment-variables-4cfa3b849659)
 
 [Angular Tips: Dynamic Module Imports with the Angular CLI](https://coryrylan.com/blog/angular-tips-dynamic-module-imports-with-the-angular-cli)
+
+[Best-practices learnt from delivering a quality Angular4 application](https://hackernoon.com/best-practices-learnt-from-delivering-a-quality-angular4-application-2cd074ea53b3)
