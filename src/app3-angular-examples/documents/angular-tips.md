@@ -518,3 +518,242 @@ into compilerOptions object.
 
 ng serve --preserve-symlinks
 ```
+
+## NPM dependencies
+
+Dependencies are specified in a simple object that maps a package name to a version range. The version range is a string which has one or more space-separated descriptors. Dependencies can also be identified with a tarball or git URL.
+
+Please do not put test harnesses or transpilers in your dependencies object. See devDependencies, below.
+
+See semver for more details about specifying version ranges.
+
+- version Must match version exactly
+- &gt;version Must be greater than version
+- &gt;=version etc
+- &lt;version
+- &lt;=version
+- ~version "Approximately equivalent to version" See semver
+- ^version "Compatible with version" See semver
+- 1.2.x 1.2.0, 1.2.1, etc., but not 1.3.0
+- http://... See 'URLs as Dependencies' below
+- * Matches any version
+- "" (just an empty string) Same as *
+- version1 - version2 Same as >=version1 <=version2.
+- range1 || range2 Passes if either range1 or range2 are satisfied.
+- git... See 'Git URLs as Dependencies' below
+- user/repo See 'GitHub URLs' below
+- tag A specific version tagged and published as tag See npm-dist-tag
+- path/path/path See Local Paths below
+
+For example, these are all valid:
+
+```
+{ "dependencies" :
+  { "foo" : "1.0.0 - 2.9999.9999"
+  , "bar" : ">=1.0.2 <2.1.2"
+  , "baz" : ">1.0.2 <=2.3.4"
+  , "boo" : "2.0.1"
+  , "qux" : "<1.0.0 || >=2.3.1 <2.4.5 || >=2.5.2 <3.0.0"
+  , "asd" : "http://asdf.com/asdf.tar.gz"
+  , "til" : "~1.2"
+  , "elf" : "~1.2.3"
+  , "two" : "2.x"
+  , "thr" : "3.3.x"
+  , "lat" : "latest"
+  , "dyl" : "file:../dyl"
+  }
+}
+```
+
+## Webpack common chunks in Angular CLI
+
+```
+// ng eject will eject webpack.config.js for more customization
+// webpack.config.js
+
+const entryPoints = ["inline","polyfills","sw-register","styles","vendor","main","rxjs", "alight"];
+
+"plugins": [
+	new CommonsChunkPlugin({
+		"name": [
+			"rxjs"
+		],
+		"minChunks": (module) => {
+			console.log('RXJS :::', module.resource, '====', module.resource && module.resource.startsWith(nodeModules + '\\rxjs'));
+
+			return module.resource
+			&& (module.resource.startsWith(nodeModules+ '\\rxjs'));
+		},
+		"chunks": [
+			"main"
+		]
+	}),
+    new CommonsChunkPlugin({
+		"name": [
+			"vendor"
+		],
+		"minChunks": (module) => {
+			console.log('module.resource :::', module.resource)
+			console.log("nodeModules ::: ================", module.resource && module.resource.startsWith(nodeModules));
+			console.log("genDirNodeModules ::: ================", module.resource && module.resource.startsWith(genDirNodeModules));
+			console.log("realNodeModules ::: ================", module.resource && module.resource.startsWith(realNodeModules));
+
+			/* output
+			=========================
+				module.resource ::: C:\my-sample-angular-app\node_modules\primeng\components\button\button.js
+				nodeModules ::: ================ C:\my-sample-angular-app\node_modules
+				genDirNodeModules ::: ================ C:\my-sample-angular-app\src\$$_gendir\node_modules
+				realNodeModules ::: ================ C:\my-sample-angular-app\node_modules
+			*/
+
+			return module.resource
+			&& (module.resource.startsWith(nodeModules)
+			|| module.resource.startsWith(genDirNodeModules)
+			|| module.resource.startsWith(realNodeModules));
+		},
+		"chunks": [
+			"main"
+		]
+	})
+}
+
+// Index.html
+&lt;script type="text/javascript" src="./inline.bundle.js">&lt;/script>
+&lt;script type="text/javascript" src="./polyfills.bundle.js">&lt;/script>
+&lt;script type="text/javascript" src="./rxjs.bundle.js">&lt;/script>
+&lt;script type="text/javascript" src="./styles.bundle.js">&lt;/script>
+&lt;script type="text/javascript" src="./vendor.bundle.js">&lt;/script>
+&lt;script type="text/javascript" src="./main.bundle.js">&lt;/script>
+
+```
+
+## Split app and vendors
+
+When your application is depending on other libraries, especially large ones like Angular JS, you should consider splitting those dependencies into its own vendors bundle. This will allow you to do updates to your application, without requiring the users to download the vendors bundle again. Use this strategy when:
+
+- When your vendors reaches a certain percentage of your total app bundle. Like 20% and up
+- You will do quite a few updates to your application
+- You are not too concerned about perceived initial loading time, but you do have returning users and care about optimizing the experience when you do updates to the application
+- Users are on mobile
+
+```
+webpack.production.config.js
+
+var path = require('path');
+var webpack = require('webpack');
+var nodeModulesDir = path.resolve(__dirname, '../node_modules');
+
+var config = {
+  entry: {
+    app: path.resolve(__dirname, '../app/main.js'),
+    vendors: ['angular'] // And other vendors
+  },
+  output: {
+    path: path.resolve(__dirname, '../dist'),
+    filename: 'app.js'
+  },
+  module: {
+    loaders: [{
+      test: /\.js$/,
+      exclude: [nodeModulesDir],
+      loader: 'babel'
+    }]
+  },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js')
+  ]
+};
+
+module.exports = config;
+```
+
+This configuration will create two files in the dist/ folder. app.js and vendors.js.
+
+> **Important!**
+Remember to add both files to your HTML file, or you will get the error: Uncaught ReferenceError: webpackJsonp is not defined.
+
+
+## Angular CLI : eject webpack.config.js for local development and production build
+
+### Example 1
+
+Source : <a href="https://github.com/dmachat/angular-webpack-cookbook/wiki/Split-app-and-vendors">Split app and vendors</a>
+
+You can eject the production version of the webpack config by using the following command:
+
+`ng eject --prod`
+
+If you want to use both the development & production versions of the ejected webpack config, do the following:
+
+Backup your existing package.json
+Execute ng eject --prod (this will eject the production version of webpack config)
+
+Rename the ejected webpack.config.json to webpack.config-prod.json
+
+Restore your backed up package.json (the actual changes are pretty much the scripts and few new packages). You might also want to edit your .angular-cli.json and change the ejected property to false.
+Execute ng eject (this will eject the development version).
+You're now left with a production & development version of your webpack configs. Now, to compile your Angular project for production, execute webpack --config webpack.config-prod.js and you can also add this to your package.json scripts for ease.
+
+However, this may not be the perfect method for this but this is what I did in the. If there's a better version, feel free to edit.
+
+### Example 2
+
+I ran into this issue after running ng eject and found this issue. It isn't very difficult to work around, just more hassle than it should be and shouldn't require a workaround at all.
+
+IMHO running ng eject should spit out a webpack.dev.config and a webpack.prod.config. It should also create npm scripts for build:prod, and watch, in addition to the other scripts it creates.
+
+So until an official solution presents itself, here's my workaround.
+
+- run ng eject
+- rename webpack.config.js to webpack.dev.config.js
+- delete all the npm scripts in package.json
+- run ng eject --prod
+- (optional) rename the new webpack.config.js to webpack.prod.config.js
+- setup your npm scripts in package.json
+- run npm i
+- And here is what my npm scripts look like when I'm done.
+
+```
+"scripts": {
+    "build": "webpack --config webpack.dev.config",
+    "watch": "webpack --watch --config webpack.dev.config",
+    "build:prod": "webpack --config webpack.prod.config",
+    "start": "webpack-dev-server --port=4200 --config webpack.dev.config",
+    "test": "karma start ./karma.conf.js",
+    "pree2e": "webdriver-manager update --standalone false --gecko false --quiet",
+    "e2e": "protractor ./protractor.conf.js"
+  }
+  ```
+
+## Webpack code splitting
+
+Source : <a href="http://www.syntaxsuccess.com/viewarticle/code-splitting-in-webpack"></a>
+
+```
+var path = require('path');
+const webpack = require('webpack');
+
+module.exports = {
+  entry : {
+    person: './src/code-splitting-webpack/person-service.js',
+    car: './src/code-splitting-webpack/car-service.js'
+  },
+  output: {
+      filename: '[name].bundle.js',
+      path: path.resolve(__dirname, '../../dist')
+  },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+        name: 'lib',
+        minChunks: 2,
+        filename: '[name].js',
+    })
+  ]
+}
+```
+
+## Helpful Links of Tutorials
+
+[Angular CLI and OS Environment Variables](https://medium.com/@natchiketa/angular-cli-and-os-environment-variables-4cfa3b849659)
+
+[Angular Tips: Dynamic Module Imports with the Angular CLI](https://coryrylan.com/blog/angular-tips-dynamic-module-imports-with-the-angular-cli)
