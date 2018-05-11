@@ -572,7 +572,7 @@ For example, these are all valid:
 // webpack.config.js
 
 // const entryPoints = ["inline","polyfills","sw-register","styles","vendor","main","rxjs", "alight"];
-const entryPoints = ["inline", "polyfills", "rxjs", "lodash", "sw-register", "styles", "primeng", "vendor", "main"];
+const entryPoints = ["inline", "polyfills", "rxjs", "angular", "lodash", "sw-register", "styles", "primeng", "vendor", "main"];
 
 "plugins": [
 	new CommonsChunkPlugin({
@@ -598,6 +598,20 @@ const entryPoints = ["inline", "polyfills", "rxjs", "lodash", "sw-register", "st
 
         return module.resource
           && (module.resource.startsWith(nodeModules + '\\lodash') || module.resource.startsWith(nodeModules + '\\ng2-validation'));
+      },
+      "chunks": [
+        "main"
+      ]
+    }),
+	 new CommonsChunkPlugin({
+      "name": [
+        "angular"
+      ],
+      "minChunks": (module) => {
+        console.log('@angular :::', module.resource, '====', module.resource && module.resource.startsWith(nodeModules + '\\@angular'));
+
+        return module.resource
+          && (module.resource.startsWith(nodeModules + '\\@angular'));
       },
       "chunks": [
         "main"
