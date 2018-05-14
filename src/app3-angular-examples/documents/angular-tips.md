@@ -882,6 +882,56 @@ module.exports = {
 };
 ```
 
+## Our solution for getting a previous route with Angular 5
+
+REf : https://blog.hackages.io/our-solution-to-get-a-previous-route-with-angular-5-601c16621cf0
+
+```
+// SERVICE
+
+@Injectable()
+export class RoutingState {
+  private history = [];
+
+  constructor(
+    private router: Router
+  ) {}
+
+  public loadRouting(): void {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(({urlAfterRedirects}: NavigationEnd) => {
+        this.history = [...this.history, urlAfterRedirects];
+      });
+  }
+
+  public getHistory(): string[] {
+    return this.history;
+  }
+
+  public getPreviousUrl(): string {
+    return this.history[this.history.length - 2] || '/index';
+  }
+}
+
+// USAGE
+
+@Component(...)
+export class OurComponent implements OnInit {
+  previousRoute: string;
+
+  constructor(
+    private routingState: RoutingState
+  ) {}
+
+  ngOnInit() {
+    this.previousRoute = this.routingState.getPreviousUrl();
+  }
+
+}
+```
+
+
 ## Helpful Links of Tutorials
 
 [Angular CLI and OS Environment Variables](https://medium.com/@natchiketa/angular-cli-and-os-environment-variables-4cfa3b849659)
