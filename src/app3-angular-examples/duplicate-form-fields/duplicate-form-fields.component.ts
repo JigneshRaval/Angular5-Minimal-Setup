@@ -34,6 +34,7 @@ export class DuplicateFormFields {
     }
 
     addItem() {
-        this.items.push({ id: 4, name: 'item 4' });
+        this.items.push({ id: this.items.length + 1, name: 'item 4' });
+        console.log(this.items);
     }
 }
