@@ -44,6 +44,8 @@ import { AngularTipsComponent } from './components/angular-tips.component';
 import { ExampleObservableComponent } from './example-observable/example-observable.component';
 import { ExampleObservableService } from './example-observable/example-observable.service';
 import { ExampleObservableSubject } from './example-observable/example-observable-subject.component';
+import { ObservableWithAsyncPipe } from './example-observable/observable-async-pipe.component';
+
 import * as ObservableTimerExample from './example-observable/example-obervable-timer';
 
 console.log('ObservableTimerExample:', ObservableTimerExample);
@@ -91,6 +93,7 @@ export const MY_EXAMPLES = {
         AngularTipsComponent,
         ExampleObservableComponent,
         ExampleObservableSubject,
+        ObservableWithAsyncPipe,
         NamedRouterComponent,
         ChildRoute1Component,
         ChildRoute2Component,

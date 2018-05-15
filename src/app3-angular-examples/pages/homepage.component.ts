@@ -34,6 +34,8 @@ import { DialogAnchorDirective } from '../example-dynamic-dialog/dialog-anchor.d
 
                 <example-observable-subject></example-observable-subject>
 
+                <obervable-with-async-pipe></obervable-with-async-pipe>
+
                 <named-router-component></named-router-component>
 
                 <article-list-component></article-list-component>
