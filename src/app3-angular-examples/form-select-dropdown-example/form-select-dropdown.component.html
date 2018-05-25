@@ -1,0 +1,83 @@
+<section class="container">
+
+    <h2>Template-driven Form with Select Dropdown Example:</h2>
+
+    <p>
+        <strong>Referance : </strong><a href="https://www.concretepage.com/angular-2/angular-2-select-option-multiple-select-option-validation-example-using-template-driven-form">Angular 2 Select Option + Multiple Select Option + Validation Example using Template-Driven Form</a>
+    </p>
+
+    <form #f="ngForm" novalidate (ngSubmit)="submitForm(f, f.valid)">
+        <!-- Name field -->
+        <div class="uk-margin">
+            <label for="">Name:</label>
+
+            <input type="text" class="form-control uk-input" name="name" [(ngModel)]="user.name" #name="ngModel" required minlength="5"
+            />
+
+            <div [hidden]="name.valid || (name.pristine && !f.submitted)" [ngClass]="'uk-alert-danger'" uk-alert>
+                Error Message :Name is required ( Minimum length 5 characters )
+            </div>
+        </div>
+
+        <!--street-->
+        <div class="uk-margin" [ngClass]="{'has-error': street.invalid}">
+            <label for="">Street:</label>
+
+            <input type="text" class="uk-input" name="street" [(ngModel)]="user.address.street" #street="ngModel" required />
+
+            <div [hidden]="street.valid || (street.pristine && !f.submitted)" [ngClass]="'uk-alert-danger'" uk-alert>
+                Error Message :Street is required.
+            </div>
+        </div>
+
+        <div class="uk-margin">
+            <label for="">Postalcode:</label>
+            <input type="text" class="uk-input" name="postalcode" [(ngModel)]="user.address.postalcode" />
+        </div>
+
+        <div class="uk-margin">
+
+            <label>Language</label>
+
+            <select class="uk-select" name="language" ngModel>
+                <option value="">Please select a language</option>
+                <option *ngFor="let lang of langs" [value]="lang">
+                    {{lang}}
+                </option>
+            </select>
+
+            <div *ngIf="language && language.invalid && f.submitted" [ngClass]="'uk-alert-danger'" uk-alert>
+                Error Message : Please select valid language.
+            </div>
+
+        </div>
+
+        <div class="uk-margin" [ngClass]="{'has-error': profile.invalid}">
+
+            <label>Profile</label>
+
+            <select class="uk-select" name="profile" [(ngModel)]="user.profile" required #profile="ngModel" (change)="onProfileChange($event)">
+                <option [ngValue]="null">Choose your profile</option>
+                <option *ngFor="let prf of allProfiles" [ngValue]="prf.prName">
+                    {{ prf.prName }}
+                </option>
+            </select>
+
+            <div *ngIf="profile.invalid && f.submitted" [ngClass]="'uk-alert-danger'" uk-alert>
+                Error Message : Please select valid profile.
+            </div>
+
+        </div>
+
+        <button class="uk-button uk-button-primary" type="submit">Submit</button>
+    </form>
+
+    <div class="margin-20">
+        <h4>Output</h4>
+        <div>Form details:-</div>
+        <pre>Is form valid?: <br>{{f.valid | json}}</pre>
+        <pre>Is form submitted?: <br>{{f.submitted | json}}</pre>
+        <pre>form value: <br>{{f.value | json}}</pre>
+    </div>
+
+</section>

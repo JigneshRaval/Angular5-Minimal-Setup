@@ -3,7 +3,7 @@ import { User } from './user.interface';
 
 @Component({
     selector: 'template-driven-form-component',
-    templateUrl: 'app/components/form-example/template-driven-form.component.html'
+    templateUrl: './template-driven-form.component.html'
 })
 export class TemplateDrivenFormComponent implements OnInit {
     public user: User; // our model

@@ -27,6 +27,8 @@ import HelloWorldComponent from './example-dynamic-component/hello-world.compone
 import WorldHelloComponent from './example-dynamic-component/world-hello.component';
 
 import { TemplateDrivenForm1Component } from './example-forms/template-driven-form-1/template-driven-form-1.component';
+import { TemplateDrivenFormComponent } from './form-example/template-driven-form.component';
+import { FormSelectDropdownComponent } from './form-select-dropdown-example/form-select-dropdown.component';
 
 import { NgTemplateNgForComponent } from './ng-templates-examples/ng-template-ngfor.component';
 
@@ -81,6 +83,8 @@ export const MY_EXAMPLES = {
         HeroProfileComponent,
         Example2MainComponent,
         TemplateDrivenForm1Component,
+        TemplateDrivenFormComponent,
+        FormSelectDropdownComponent,
         MainDynamicComponent,
         DynamicComponent,
         HelloWorldComponent,
