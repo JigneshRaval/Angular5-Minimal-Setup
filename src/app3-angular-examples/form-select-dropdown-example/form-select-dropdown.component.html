@@ -40,7 +40,7 @@
             <label>Language</label>
 
             <select class="uk-select" name="language" ngModel>
-                <option value="">Please select a language</option>
+                <option value="0">Please select a language</option>
                 <option *ngFor="let lang of langs" [value]="lang">
                     {{lang}}
                 </option>

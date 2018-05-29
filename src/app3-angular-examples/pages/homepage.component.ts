@@ -43,6 +43,8 @@ import { DialogAnchorDirective } from '../example-dynamic-dialog/dialog-anchor.d
                 <template-driven-form-component></template-driven-form-component>
 
                 <form-select-dropdown-component></form-select-dropdown-component>
+
+                <connected-dropdown-component></connected-dropdown-component>
             </div>
     `
 })

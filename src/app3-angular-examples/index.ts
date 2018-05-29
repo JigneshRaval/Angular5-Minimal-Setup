@@ -65,6 +65,8 @@ import { FilterListViewComponent } from './example-6/list-view.component';
 import { UpperCasePipe } from './pipes-example/uppercase.filter';
 import { SearchFilterPipe } from './pipes-example/search-filter-list.pipe';
 
+import { ConnectedDropdownComponent } from './connected-dropdown/connected-dropdown.component';
+
 // Export all Components, Entry Components, Directives, Pipes and Services
 export const MY_EXAMPLES = {
     "COMPONENTS": [
@@ -103,7 +105,8 @@ export const MY_EXAMPLES = {
         ChildRoute2Component,
         ChildRoute3Component,
         ListViewComponent,
-        FilterListViewComponent
+        FilterListViewComponent,
+        ConnectedDropdownComponent
     ],
     "ENTRY_COMPONENTS": [HeroJobAdComponent, HeroProfileComponent, DialogComponent],
     "DIRECTIVES": [DialogAnchorDirective],
