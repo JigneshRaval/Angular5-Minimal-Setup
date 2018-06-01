@@ -67,6 +67,8 @@ import { SearchFilterPipe } from './pipes-example/search-filter-list.pipe';
 
 import { ConnectedDropdownComponent } from './connected-dropdown/connected-dropdown.component';
 
+import { FootnoteFilterComponent } from './footnote-filter/footnote-filter.component';
+
 // Export all Components, Entry Components, Directives, Pipes and Services
 export const MY_EXAMPLES = {
     "COMPONENTS": [
@@ -106,7 +108,8 @@ export const MY_EXAMPLES = {
         ChildRoute3Component,
         ListViewComponent,
         FilterListViewComponent,
-        ConnectedDropdownComponent
+        ConnectedDropdownComponent,
+        FootnoteFilterComponent
     ],
     "ENTRY_COMPONENTS": [HeroJobAdComponent, HeroProfileComponent, DialogComponent],
     "DIRECTIVES": [DialogAnchorDirective],

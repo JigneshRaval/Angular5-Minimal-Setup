@@ -1,0 +1,336 @@
+{
+  "pensionFormOfPayment": {
+    "title": "Pension Forms of Payment",
+    "benefitDropdown": {
+      "label": "Benefit",
+      "options": [
+        {
+          "label": "Employee Pension and Retirement Plan Simply a Simple Election A",
+          "value": "8744x10x10"
+        },
+        {
+          "label": "Employee Pension and Retirement Plan Simply a Simple Election B",
+          "value": "8744x0x20"
+        },
+        {
+          "label": "Pension Plan A Simply Another Simple Election",
+          "value": "8720x0x25"
+        }
+      ]
+    },
+    "introParagraphs": "If you want a paper copy of projected payment information, <script type=\"text/javascript\">AUI().use('get', function(A){A.Get.script('/html/js/aonhewitt/coreVisual.js');});</script><A onclick=\"if(isUACrossEnabled()){try{ga('trackerUa1.send','event', 'Internal Link' ,'Link click','LinkId:CONTACT_US_LANDING_PAGE LinkDest:/web/hmOrg/contact-us'); } catch(err){}} if(isUAClientEnabled()){ try{if(isGTMEnabled()){dataLayer.push({'event':'UPointLinkEvent','linkCategory':'Internal Link','linkAction':'Link Click','linkLabel':'LinkId:CONTACT_US_LANDING_PAGE LinkDest:/web/hmOrg/contact-us'});}else{ga('trackerUa2.send','event', 'Internal Link' ,'Link click','LinkId:CONTACT_US_LANDING_PAGE LinkDest:/web/hmOrg/contact-us'); }} catch(err){}}try{setTimeout(function() {}, 100);}catch(err){}window.winHandle = window.open('/web/hmOrg/contact-us?linkId=CONTACT_US_LANDING_PAGE&technicalNameForLink=CONTACT_US_LANDING_PAGE&userFriendlyNameForLink=Contact Us landing page link&domain=null&baseClientIndicator=Base','CONTACT_US_LANDING_PAGE','titlebar=yes,scrollbars=yes,resizable=yes,width=980,height=560');if(typeof XD != 'undefined'){XD.registerWindow('CONTACT_US_LANDING_PAGE',window.winHandle);}try{setSessionTimeOut()}catch(err){};return false;\" href=\"/web/hmOrg/contact-us?linkId=CONTACT_US_LANDING_PAGE&technicalNameForLink=CONTACT_US_LANDING_PAGE&userFriendlyNameForLink=Contact Us landing page link&domain=null&baseClientIndicator=Base\" class=\"ah-secondaryWindow\">Contact Us</A>",
+    "plusText": "Plus",
+    "planElectionCalculationDetails": [
+      {
+        "id": "8744x10x10",
+        "totalOptionalFormGroupsCount": 2,
+        "multiplePaymentOptionText": "You have 2 payment options for this benefit.",
+        "optionalFormsOfPayment": [
+          {
+            "formId": 2000,
+            "optionalFormsOfPaymentHeader": "Form of Payment List 1 of 2 - Main Forms",
+            "primaryOptionalFormsOfPayment": [
+              {
+                "optionalFormType": "LS",
+                "formId": 2000,
+                "formDescription": "Lump Sum Distribution",
+                "formPanelLead": "A one-time payment to you only",
+                "formPanelBulletPoints": "<p class=\"pseudolist\" role=\"listitem\"><strong>No</strong> payment to your beneficiary</p> <p class=\"pseudolist\" role=\"listitem\">If married, your spouse must consent</p> <p class=\"pseudolist\" role=\"listitem\">Entire value of your pension benefit (or, in some cases, a portion of the entire value)</p> <p class=\"pseudolist\" role=\"listitem\">Subject to taxation, and the Internal Revenue Service requires 20% be automatically withheld</p> <p class=\"pseudolist\" role=\"listitem\">May be subject to 10% penalty tax on early distributions</p>",
+                "learnMoreLink": "<a href=\"#\">Learn More</a>",
+                "learnMoreLinkText": "",
+                "autoSelectedOptionalFormsOfPayment": [],
+                "complexForms": {
+                  "paymentAmount": [
+                    {
+                      "amount": "$4,356.78",
+                      "footnotes": [
+                        {
+                          "id": "baseFtnt",
+                          "text": "This is a before-tax amount"
+                        },
+                        {
+                          "id": "clntFtnt1",
+                          "text": "This is a client footnote 1"
+                        },
+                        {
+                          "id": "clntFtnt2",
+                          "text": "This is a client footnote 2"
+                        }
+                      ],
+                      "monthlyText": "(one-time)",
+                      "hasPopupText": ""
+                    }
+                  ],
+                  "paymentDetail": [
+                    {
+                      "text": "Beneficiary Benefit (for payments after your death)",
+                      "amount": ""
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "formId": 2325,
+            "optionalFormsOfPaymentHeader": "Form of Payment List 2 of 2 - Main Forms",
+            "primaryOptionalFormsOfPayment": [
+              {
+                "optionalFormType": "YCL",
+                "formId": 1000,
+                "formDescription": "Single Life Annuity",
+                "formPanelLead": "A monthly payment to you until you die, then your monthly payment to your beneficiary until the cutoff date (<strong>Dec 01, 2025</strong>)",
+                "formPanelBulletPoints": "<p class=\"pseudolist\" role=\"listitem\">If you die before 10.0-year cutoff date, your monthly payments will continue to your beneficiary until the 10.0-year cutoff date</p><p class=\"pseudolist\" role=\"listitem\">If you die after 10.0-year cutoff date, no payment to your beneficiary</p><p class=\"pseudolist\" role=\"listitem\">If married, your spouse must consent</p><p class=\"pseudolist\" role=\"listitem\">Beneficiary can be added after you retire</p><p class=\"pseudolist\" role=\"listitem\">Contingent beneficiary can be named (in case your beneficiary dies before the 10.0-year cutoff date)</p><p class=\"pseudolist\" role=\"listitem\">If no beneficiary when you die, remaining payments made per plan rules</p>",
+                "learnMoreLink": "<a href=\"#\">Learn More</a>",
+                "learnMoreLinkText": "",
+                "autoSelectedOptionalFormsOfPayment": [],
+                "complexForms": {
+                  "paymentAmount": [
+                    {
+                      "amount": "$4,356.78",
+                      "footnotes": [
+                        {
+                          "id": "baseFtnt",
+                          "text": "This is a before-tax amount"
+                        },
+                        {
+                          "id": "clntFtnt1",
+                          "text": "This is a client footnote 1"
+                        },
+                        {
+                          "id": "clntFtnt3",
+                          "text": "This is a client footnote 3"
+                        }
+                      ],
+                      "monthlyText": "(monthly)",
+                      "hasPopupText": ""
+                    }
+                  ],
+                  "paymentDetail": [
+                    {
+                      "text": "Beneficiary Benefit (after your death, for payments <strong>before</strong> <span class=\"ah-noWrap\">Dec 01, 2025</span>)",
+                      "amount": "$4,356.78"
+                    },
+                    {
+                      "text": "Beneficiary Benefit (after your death, for payments <strong>on or after</strong> <span class=\"ah-noWrap\">Dec 01, 2025</span>)",
+                      "amount": "$0.00"
+                    }
+                  ]
+                }
+              },
+              {
+                "optionalFormType": "LS",
+                "formId": 2000,
+                "formDescription": "Lump Sum Distribution",
+                "formPanelLead": "A one-time payment to you only",
+                "formPanelBulletPoints": "<p class=\"pseudolist\" role=\"listitem\"><strong>No</strong> payment to your beneficiary</p> <p class=\"pseudolist\" role=\"listitem\">If married, your spouse must consent</p> <p class=\"pseudolist\" role=\"listitem\">Entire value of your pension benefit (or, in some cases, a portion of the entire value)</p> <p class=\"pseudolist\" role=\"listitem\">Subject to taxation, and the Internal Revenue Service requires 20% be automatically withheld</p> <p class=\"pseudolist\" role=\"listitem\">May be subject to 10% penalty tax on early distributions</p>",
+                "learnMoreLink": "<a href=\"#\">Learn More</a>",
+                "learnMoreLinkText": "",
+                "autoSelectedOptionalFormsOfPayment": [
+                  {
+                    "optionalFormType": "SLA",
+                    "formId": 0,
+                    "formDescription": "Lump Sum Option",
+                    "formPanelLead": "A monthly payment to you only, until you die",
+                    "formPanelBulletPoints": "<p class=\"pseudolist\" role=\"listitem\"><strong>No</strong> payment to your beneficiary</p><p class=\"pseudolist\" role=\"listitem\">If married, your spouse must consent</p>",
+                    "learnMoreLink": "<a href=\"#\">Learn More</a>",
+                    "learnMoreLinkText": "",
+                    "complexForms": {
+                      "paymentAmount": [
+                        {
+                          "amount": "$4,356.78",
+                          "footnotes": [
+                            {
+                              "id": "baseFtnt",
+                              "text": "This is a before-tax amount"
+                            },
+                            {
+                              "id": "clntFtnt5",
+                              "text": "1: This is a client footnote 5"
+                            }
+                          ],
+                          "monthlyText": "(monthly)",
+                          "hasPopupText": ""
+                        }
+                      ],
+                      "paymentDetail": [
+                        {
+                          "text": "Beneficiary Benefit (for payments after your death)",
+                          "amount": ""
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "complexForms": {
+                  "paymentAmount": [
+                    {
+                      "amount": "$4,356.78",
+                      "footnotes": [
+                        {
+                          "id": "baseFtnt",
+                          "text": "This is a before-tax amount"
+                        },
+                        {
+                          "id": "clntFtnt2",
+                          "text": "This is a before-tax amount"
+                        },
+                        {
+                          "id": "clntFtnt5",
+                          "text": "2: This is a client footnote 5"
+                        }
+                      ],
+                      "monthlyText": "(one-time)",
+                      "hasPopupText": ""
+                    }
+                  ],
+                  "paymentDetail": [
+                    {
+                      "text": "Beneficiary Benefit (for payments after your death)",
+                      "amount": ""
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "8744x0x20",
+        "totalOptionalFormGroupsCount": 1,
+        "multiplePaymentOptionText": "You have 1 payment options for this benefit.",
+        "optionalFormsOfPayment": [
+          {
+            "formId": 2300,
+            "optionalFormsOfPaymentHeader": null,
+            "primaryOptionalFormsOfPayment": [
+              {
+                "optionalFormType": "YCL",
+                "formId": 1000,
+                "formDescription": "5-year Certain and Life Annuity",
+                "formPanelLead": "A monthly payment to you until you die, then your monthly payment to your beneficiary until the cutoff date (<strong>Dec 01, 2025</strong>)",
+                "formPanelBulletPoints": "<p class=\"pseudolist\" role=\"listitem\">If you die before 10.0-year cutoff date, your monthly payments will continue to your beneficiary until the 10.0-year cutoff date</p><p class=\"pseudolist\" role=\"listitem\">If you die after 10.0-year cutoff date, no payment to your beneficiary</p><p class=\"pseudolist\" role=\"listitem\">If married, your spouse must consent</p><p class=\"pseudolist\" role=\"listitem\">Beneficiary can be added after you retire</p><p class=\"pseudolist\" role=\"listitem\">Contingent beneficiary can be named (in case your beneficiary dies before the 10.0-year cutoff date)</p><p class=\"pseudolist\" role=\"listitem\">If no beneficiary when you die, remaining payments made per plan rules</p>",
+                "learnMoreLink": "<a href=\"#\">Learn More</a>",
+                "learnMoreLinkText": "",
+                "autoSelectedOptionalFormsOfPayment": [],
+                "complexForms": {
+                  "paymentAmount": [
+                    {
+                      "amount": "$4,356.78",
+                      "footnotes": [
+                        {
+                          "id": "baseFtnt",
+                          "text": "This is a before-tax amount"
+                        },
+                        {
+                          "id": "clntFtnt5",
+                          "text": "3: This is a client footnote 5"
+                        }
+                      ],
+                      "monthlyText": "(monthly)",
+                      "hasPopupText": ""
+                    }
+                  ],
+                  "paymentDetail": [
+                    {
+                      "text": "Beneficiary Benefit (after your death, for payments <strong>before</strong> <span class=\"ah-noWrap\">Dec 01, 2025</span>)",
+                      "amount": "$4,356.78"
+                    },
+                    {
+                      "text": "Beneficiary Benefit (after your death, for payments <strong>on or after</strong> <span class=\"ah-noWrap\">Dec 01, 2025</span>)",
+                      "amount": "$0.00"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "8720x0x25",
+        "totalOptionalFormGroupsCount": 1,
+        "multiplePaymentOptionText": "You have 1 payment options for this benefit.",
+        "optionalFormsOfPayment": [
+          {
+            "formId": 1325,
+            "optionalFormsOfPaymentHeader": null,
+            "primaryOptionalFormsOfPayment": [
+              {
+                "optionalFormType": "JSA",
+                "formId": 2000,
+                "formDescription": "50% Joint and Survivor Annuity",
+                "formPanelLead": "A monthly payment to you until you die, then <strong>17.0%</strong> of your monthly payment to your beneficiary until your beneficiary dies",
+                "formPanelBulletPoints": "<p class=\"pseudolist\" role=\"listitem\">After you die, <strong>17.0%</strong> benefit payment to your beneficiary until he or she dies</p><p class=\"pseudolist\" role=\"listitem\">If married and beneficiary is <strong>not</strong> your spouse, your spouse must consent</p>",
+                "learnMoreLink": "<a href=\"#\">Learn More</a>",
+                "learnMoreLinkText": "",
+                "autoSelectedOptionalFormsOfPayment": [],
+                "complexForms": {
+                  "paymentAmount": [
+                    {
+                      "amount": "$4,356.78",
+                      "footnotes": [
+                        {
+                          "id": "baseFtnt",
+                          "text": "This is a before-tax amount"
+                        },
+                        {
+                          "id": "clntFtnt5",
+                          "text": "4: This is a client footnote 5"
+                        }
+                      ],
+                      "monthlyText": "(monthly)",
+                      "hasPopupText": ""
+                    }
+                  ],
+                  "paymentDetail": [
+                    {
+                      "text": "Beneficiary Benefit (for payments after your death)",
+                      "amount": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "optionalFormType": "LS",
+                "formId": 30,
+                "formDescription": "Lump Sum",
+                "formPanelLead": "A one-time payment to you only",
+                "formPanelBulletPoints": "<p class=\"pseudolist\" role=\"listitem\"><strong>No</strong> payment to your beneficiary</p> <p class=\"pseudolist\" role=\"listitem\">If married, your spouse must consent</p> <p class=\"pseudolist\" role=\"listitem\">Entire value of your pension benefit (or, in some cases, a portion of the entire value)</p> <p class=\"pseudolist\" role=\"listitem\">Subject to taxation, and the Internal Revenue Service requires 20% be automatically withheld</p> <p class=\"pseudolist\" role=\"listitem\">May be subject to 10% penalty tax on early distributions</p>",
+                "learnMoreLink": "<a href=\"#\">Learn More</a>",
+                "learnMoreLinkText": "",
+                "autoSelectedOptionalFormsOfPayment": [],
+                "complexForms": {
+                  "paymentAmount": [
+                    {
+                      "amount": "$4,356.78",
+                      "footnotes": [
+                        {
+                          "id": "baseFtnt",
+                          "text": "This is a before-tax amount"
+                        },
+                        {
+                          "id": "clntFtnt5",
+                          "text": "5: This is a client footnote 5"
+                        }
+                      ],
+                      "monthlyText": "(one-time)",
+                      "hasPopupText": ""
+                    }
+                  ],
+                  "paymentDetail": [
+                    {
+                      "text": "Beneficiary Benefit (for payments after your death)",
+                      "amount": ""
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

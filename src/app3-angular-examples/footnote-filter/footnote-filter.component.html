@@ -1,0 +1,32 @@
+<div *ngFor="let plan of plans; let i = index" style="padding: 1em; border: 1px solid #EEE;">
+
+	<div *ngFor="let optionalFormsOfPayment of plan.optionalFormsOfPayment">
+		{{optionalFormsOfPayment.formId}}
+
+		<div *ngFor="let primaryOptionalFormsOfPayment of optionalFormsOfPayment.primaryOptionalFormsOfPayment" style="padding: 1em; border: 1px solid #EEE;">
+			{{primaryOptionalFormsOfPayment.formDescription}}
+
+
+			<div *ngFor="let paymentAmount of primaryOptionalFormsOfPayment.complexForms.paymentAmount" style="padding: 1em; border: 1px solid #ff0000;">
+				{{paymentAmount.amount}}
+
+
+				<ng-template ngFor let-i="index" let-footnote [ngForOf]="paymentAmount.footnotes">
+
+					<div *ngFor="let fnote of footNoteAll; let j = index">
+						<a *ngIf="fnote.id === footnote.id" href="#" style="display: block; padding: 1em; border: 1px solid green; margin-bottom: 5px;">
+							<sup>{{j+1}}</sup>{{footnote.id}} == {{footnote.text}}
+						</a>
+					</div>
+
+				</ng-template>
+
+
+			</div>
+
+
+		</div>
+
+	</div>
+
+</div>
