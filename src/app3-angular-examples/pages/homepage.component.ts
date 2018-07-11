@@ -30,6 +30,8 @@ import { DialogAnchorDirective } from '../example-dynamic-dialog/dialog-anchor.d
 
                 <list-view-component></list-view-component>
 
+                <footnote-filter-component></footnote-filter-component>
+
                 <example-observable-list></example-observable-list>
 
                 <example-observable-subject></example-observable-subject>
@@ -45,8 +47,7 @@ import { DialogAnchorDirective } from '../example-dynamic-dialog/dialog-anchor.d
                 <form-select-dropdown-component></form-select-dropdown-component>
 
                 <connected-dropdown-component></connected-dropdown-component>
-
-                <footnote-filter-component></footnote-filter-component>
+                
             </div>
     `
 })

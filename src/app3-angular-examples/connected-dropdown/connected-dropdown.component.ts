@@ -11,16 +11,16 @@ import { State } from './state'; */
     <form #f="ngForm" novalidate (ngSubmit)="submitForm(f, f.valid)">
         <div class="uk-margin">
             <label>Country:</label>
-            <select class="uk-select" [(ngModel)]="selectedCountry.id" (change)="onSelect($event.target.value)">
-                <option value="0">--Select Country--</option>
+            <select name="contry_name" class="uk-select" [(ngModel)]="selectedCountry" (change)="onSelect($event.target.value)">
+                <option value="undefined">--Select Country--</option>
                 <option *ngFor="let country of countries" value={{country.id}}>{{country.name}}</option>
             </select>
         </div>
 
-        <div class="uk-margin" *ngIf="isContrySelected">
+        <div class="uk-margin" >
             <label>State:</label>
             <select class="uk-select">
-                <option *ngIf='selectedCountry.id == 0' value="0">--Select State--</option>
+                <option *ngIf='selectedCountry.id == 0 || selectedCountry.id == "undefined"' value="undefined">--Select State--</option>
                 <option *ngFor="let state of states " value={{state.id}} [disabled]="state.countryid==0">{{state.name}}</option>
             </select>
         </div>
@@ -36,7 +36,7 @@ export class ConnectedDropdownComponent {
 
     constructor() {
 
-        this.selectedCountry = { id: 2, name: 'India' }
+        this.selectedCountry = { id: 0, name: 'India' }
 
         // country.ts
         this.countries = [
@@ -82,6 +82,7 @@ export class ConnectedDropdownComponent {
     }
 
     onSelect(countryid) {
+
         this.states = this.statesList.filter((item) => item.countryid == countryid);
 
         // Toggle display state dropdown
