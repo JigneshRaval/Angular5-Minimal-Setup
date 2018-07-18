@@ -207,14 +207,18 @@ export class AlCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
     // Pause slideshow
     playSlideShow() {
         this.isPlaying = true;
+        let interval = this.autoPlayInterval;
+        if (typeof interval !== 'number') {
+            interval = Number(interval);
+        }
 
         if (this.slideTransitionDuration) {
-            this.autoPlayInterval += (this.slideTransitionDuration * 1000);
+            interval += (Number(this.slideTransitionDuration) * 1000);
         }
 
         this.slideChangeInterval = setInterval(() => {
             this.slideRight();
-        }, this.autoPlayInterval);
+        }, interval);
 
         // Emit event on Carousel Play
         this.onCarouselStart.emit({ ui: this, message: 'Carousel Started' });
