@@ -106,7 +106,7 @@ export class AlCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.allSlides) {
             if (this.slideTransitionDuration) {
                 [].forEach.call(this.allSlides, (slide, index) => {
-                    this.renderer.setStyle(slide, 'animation-duration', this.slideTransitionDuration + 's');
+                    this.renderer.setStyle(slide, 'animation-duration', Number(this.slideTransitionDuration) + 's');
                 });
             }
         }
