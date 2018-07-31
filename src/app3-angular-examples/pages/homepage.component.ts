@@ -14,7 +14,7 @@ import { DialogAnchorDirective } from '../example-dynamic-dialog/dialog-anchor.d
 
                 <example2-main-component></example2-main-component>
 
-                <!--<example3-carousel-main-component></example3-carousel-main-component>-->
+                <!--<example3-carousel-main-component></example3-carousel-main-component>
 
                 <div dialogAnchor></div>
 
@@ -47,7 +47,12 @@ import { DialogAnchorDirective } from '../example-dynamic-dialog/dialog-anchor.d
                 <form-select-dropdown-component></form-select-dropdown-component>
 
                 <connected-dropdown-component></connected-dropdown-component>
-                
+                -->
+
+<get-articles-component></get-articles-component>
+
+<get-articles-using-shared-service-component></get-articles-using-shared-service-component>
+
             </div>
     `
 })

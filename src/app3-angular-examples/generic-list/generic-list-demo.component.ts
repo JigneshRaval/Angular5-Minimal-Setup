@@ -8,13 +8,19 @@ import { Component } from '@angular/core';
             <ng-template let-item="$implicit" let-i="index" let-c="count" pTemplate="header">
                 <li>[{{i}}] Hello: {{item.title}} ( count : {{c}})</li>
             </ng-template>
+            <ng-template let-item="$implicit" let-i="index" let-c="count" pTemplate="body">
+                <li>[{{i}}] Hello: {{item.title}} ( count : {{c}})</li>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <p>Generic list footer.</p>
+            </ng-template>
         </generic-list>
 
-        <generic-list [items]="cols">
+        <!--<generic-list [items]="cols">
             <ng-template let-item="$implicit" let-i="index" let-c="count" pTemplate="body">
                 <li>[{{i}}] Hello 123: {{item.header}} ( count : {{c}})</li>
             </ng-template>
-        </generic-list>
+        </generic-list>-->
     `
 })
 export class ListDemo {
@@ -25,10 +31,10 @@ export class ListDemo {
         { id: 4, title: 'List Item 4' }
     ];
     cols = [
-        {field: 'vin', header: 'Vin'},
-        {field: 'year', header: 'Year'},
-        {field: 'brand', header: 'Brand'},
-        {field: 'color', header: 'Color'}
+        { field: 'vin', header: 'Vin' },
+        { field: 'year', header: 'Year' },
+        { field: 'brand', header: 'Brand' },
+        { field: 'color', header: 'Color' }
     ];
     cars: any[] = [
         { id: 1, name: 'Maruti' },

@@ -1,6 +1,51 @@
+@font-face{
+    font-family: "faktslabpro-normal",Arial,Helvetica,sans-serif;
+    src: url('../fonts/faktslabpro-normal.woff2') format('woff2');
+    font-weight:normal;font-style:normal
+}
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/OpenSans-Regular-webfont.woff') format('woff'),
+         url('../fonts/OpenSans-Regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/OpenSans-Bold-webfont.woff') format('woff'),
+         url('../fonts/OpenSans-Bold-webfont.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/OpenSans-Light-webfont.woff') format('woff'),
+         url('../fonts/OpenSans-Light-webfont.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/OpenSans-Semibold-webfont.woff') format('woff'),
+         url('../fonts/OpenSans-Semibold-webfont.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+.font-titillium-web {
+    font-family: 'Titillium Web'
+}
+.font-source-serif-pro {
+    font-family: 'Source Serif Pro'
+}
+
+/* */
 body {
     font-size: 16px;
     line-height: 1.5;
+    font-family: 'Open Sans';
 }
 img { display: block; margin: 0 auto; max-width: 100%; }
 pre {
@@ -56,11 +101,8 @@ pre,
 samp {
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
-@font-face{
-    font-family: "faktslabpro-normal",Arial,Helvetica,sans-serif;
-    src: url('../fonts/faktslabpro-normal.woff2') format('woff2');
-    font-weight:normal;font-style:normal
-}
+
+
 .visuallyhidden {
     border: 0;
     clip: rect(0 0 0 0);
@@ -75,3 +117,4 @@ samp {
 .uk-container.uk-container-expand {
     padding: 0;
 }
+

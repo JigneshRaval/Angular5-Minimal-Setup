@@ -22,12 +22,18 @@ import { PrimeTemplate } from './generic-list.directive';
             <ng-template ngFor [ngForOf]="items" [ngForTemplate]="bodyTemplate">
             </ng-template>
         </ul>
+
+        <h3>Generic List Footer</h3>
+        <h4>
+            <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+        </h4>
+
     `
 })
 export class GenericListComponent implements AfterContentInit {
     public headerTemplate: TemplateRef<any>;
     public bodyTemplate: TemplateRef<any>;
-    public templateSelector: TemplateRef<any>;
+    public footerTemplate: TemplateRef<any>;
 
     @Input() items: any[] = [];
 
@@ -40,29 +46,30 @@ export class GenericListComponent implements AfterContentInit {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'header':
-                this.headerTemplate = item.template;
-                    console.log(item.template);
+                    this.headerTemplate = item.template;
+                    console.log('Header :', item.template);
                     break;
 
                 case 'body':
-                this.bodyTemplate = item.template;
-                console.log(item.template);
+                    this.bodyTemplate = item.template;
+                    console.log('Body :', item.template);
                     break;
 
                 case 'footer':
-                console.log(item.template);
+                    this.footerTemplate = item.template;
+                    console.log('Footer :', item.template);
                     break;
 
                 case 'filter':
-                console.log(item.template);
+                    console.log(item.template);
                     break;
 
                 case 'editor':
-                console.log(item.template);
+                    console.log(item.template);
                     break;
 
                 default:
-                console.log(item.template);
+                    console.log(item.template);
                     break;
             }
         });

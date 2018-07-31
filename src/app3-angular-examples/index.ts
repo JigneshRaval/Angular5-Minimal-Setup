@@ -69,6 +69,11 @@ import { ConnectedDropdownComponent } from './connected-dropdown/connected-dropd
 
 import { FootnoteFilterComponent } from './footnote-filter/footnote-filter.component';
 
+import { GetArticlesComponent } from './examples-services/get-articles/get-articles.component';
+import { GetArticlesUsingSharedServiceComponent } from './examples-services/get-articles/get-articles-using-shared-service.component';
+import { GetArticlesService } from './examples-services/get-articles/get-articles.service';
+import { DataSharingService } from './examples-services/get-articles/data-sharing.service';
+
 // Export all Components, Entry Components, Directives, Pipes and Services
 export const MY_EXAMPLES = {
     "COMPONENTS": [
@@ -109,12 +114,14 @@ export const MY_EXAMPLES = {
         ListViewComponent,
         FilterListViewComponent,
         ConnectedDropdownComponent,
-        FootnoteFilterComponent
+        FootnoteFilterComponent,
+        GetArticlesComponent,
+        GetArticlesUsingSharedServiceComponent
     ],
     "ENTRY_COMPONENTS": [HeroJobAdComponent, HeroProfileComponent, DialogComponent],
     "DIRECTIVES": [DialogAnchorDirective],
     "PIPES": [UpperCasePipe, SearchFilterPipe],
-    "SERVICES": [AdService, PageVisibilityService, ExampleObservableService]
+    "SERVICES": [AdService, PageVisibilityService, ExampleObservableService, GetArticlesService, DataSharingService]
 }
 
 

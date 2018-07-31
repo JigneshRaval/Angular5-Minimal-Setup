@@ -62,7 +62,7 @@ export class BootstrapGrowlService {
     }
 
     private _scheduleAlertHide(timeout: number, alert: BootstrapAlert) {
-        
+
 
         let displayTimeout = Observable.timer(timeout);
         displayTimeout.subscribe(() => {
