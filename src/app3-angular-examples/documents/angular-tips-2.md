@@ -460,7 +460,7 @@ divToChange.style.color = "white";
 //Which we would agree is a bit more stressful than what angular ships with us.
 ```
 
-```
+```typescript
 // In Angular
 
 // EXAMPLE 1 : Using the [style.property] Binding.
@@ -477,8 +477,9 @@ public getRandomColor() {
 this.randomcolor = this.getRandomColor();
 
 <div [style.color]="randomcolor"> I would be styled with different colors dynamically </div>
+```
 
-
+```typescript
 // EXAMPLE 2 : Using the [ngStyle] Binding
 // ==========================================
 public font_size="12px";
@@ -490,8 +491,9 @@ public background_color="grey ";
 <!--attach a click function to this button to set the style dynamically -->
 <input type="text" [(ngModel)]="background_color" placeholder="background_color">
 <input type="text" [(ngModel)]="font_size" placeholder="font_size">
+```
 
-
+```typescript
 // EXAMPLE 3 : Class Binding using 'className' directive
 // ==========================================
 
@@ -532,7 +534,9 @@ toggle_class(){
 <button (click)="toggle_class()">Toggle_class</button>
 
 <div [class.active]="condition"></div>
+```
 
+```typescript
 // EXAMPLE 4 : Using the ngClass Binding
 // ==========================================
 <div [ngClass]="['style1', 'style2']">array of classes</div>
@@ -568,8 +572,9 @@ isClass2Visible: false;
 
 <!-- button to toggle style2 -->
 <button (click)="isClass2Visible = !isClass2Visible;">Toggle style 2</button>
+```
 
-
+```typescript
 // EXAMPLE 5
 // ==========================================
 <p [style.background-color]="'darkorchid'">
@@ -587,8 +592,9 @@ isClass2Visible: false;
 <p [style.font-size.px]="isImportant ? '30' : '16'">
   Some text that may be important.
 </p>
+```
 
-
+```typescript
 // EXAMPLE 6 : NgStyle for multiple values
 // ==========================================
 myStyles = {
@@ -608,8 +614,9 @@ myStyles = {
     'font-weight': 'bold'}">
   You say tomato, I say tomato
 </p>
+```
 
-
+```typescript
 // EXAMPLE 7 : NgStyle using function
 // ==========================================
 setMyStyles() {
@@ -627,15 +634,14 @@ setMyStyles() {
 
 ## Class Binding & NgClass in Angular 2
 
-```
+```typescript
 // EXAMPLE 1 : NgStyle using function
 // ==========================================
 isActive = false;
 
-<div [class.active]="isActive">
+`<div [class.active]="isActive">
   ...
-</div>
-
+</div>`
 
 // NgClass for multiple classes
 
@@ -646,9 +652,9 @@ myClasses = {
   long: this.name.length > 6
 }
 
-<div [ngClass]="myClasses">
+`<div [ngClass]="myClasses">
   ...
-</div>
+</div>`
 
 
 // NgClass using function return
@@ -663,9 +669,9 @@ setMyClasses() {
   return classes;
 }
 
-<div [ngClass]="setMyClasses()">
+`<div [ngClass]="setMyClasses()">
   ...
-</div>
+</div>`
 ```
 
 ## Angular : Directives + Renderer2
@@ -678,7 +684,7 @@ The Renderer2 class is an abstraction provided by Angular in the form of a servi
 
 You’ll often use Renderer2 in custom directives because of how Angular directives are the logical building block for modifying elements.
 
-```
+```typescript
 import { Directive, Renderer2, ElementRef, OnInit } from '@angular/core';
 
 @Directive({
@@ -728,6 +734,49 @@ export class GoWildDirective implements OnInit {
 
 // OUTPUT
 <h1 class="wild">Hello World!</h1>
+```
+### Click outside directive in Angular 2
+https://chyngyz.github.io/click-outside-directive/
+``` typescript
+// EXAMPLE 2 : Click outside directive in Angular 2
+// ==========================================
+
+import { Directive, ElementRef, Output, EventEmitter, HostListener } from '@angular/core';
+
+@Directive({
+  selector: '[clickOutside]'
+})
+export class ClickOutsideDirective {
+  // As our directive will fire an event on click,
+  // we need to inject EventEmitter and assign an @Output() variable as an EventEmitter.
+
+  @Output public clickOutside = new EventEmitter();
+  // @Output public clickOutsideEvent = new EventEmitter();
+
+  // In order to access the current DOM element on which we apply the current directve,
+  // we need to inject ElementRef in the directive’s constructor.
+
+  constructor(private _elementRef : ElementRef) { }
+
+  @HostListener('document:click', ['$event.target'])
+  public onClick(targetElement) {
+
+    // condition that checks if the click event was on the current element or not; and if not,
+    // we just fire the function that is bound on our EventEmitter.
+
+    const isClickedInside = this._elementRef.nativeElement.contains(targetElement);
+    if (!isClickedInside) {
+        this.clickOutside.emit(null);
+    }
+  }
+}
+
+// HTML
+<div class="my-class" clickOutside (clickOutsideEvent)="fireEvent()"></div>
+
+// OR
+
+<div class="my-class" (clickOutside)="fireEvent()"></div>
 ```
 
 ## Angular Errors
