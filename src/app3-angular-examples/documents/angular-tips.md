@@ -931,6 +931,93 @@ export class OurComponent implements OnInit {
 }
 ```
 
+## Angular Errors
+`ERROR in Metadata version mismatch for module C:/jr/__UPointNext/NextGen-v3/upoint-base-app-linked/node_modules/@alight/advocacycreatehelprequestwidget/node_modules/primeng/components/dropdown/dropdown.d.ts, found version 4, expected 3, resolving symbol AdvocacyCreateHelpRequestWidgetModule in C:/jr/__UPointNext/NextGen-v3/upoint-base-app-linked/node_modules/@alight/advocacycreatehelprequestwidget/src/index.ts, resolving symbol AdvocacyCreateHelpRequestWidgetModule in C:/jr/__UPointNext/NextGen-v3/upoint-base-app-linked/node_modules/@alight/advocacycreatehelprequestwidget/src/index.ts`
+
+```
+ERROR in Error encountered resolving symbol values statically. Calling function 'AdvocacyCreateHelpRequestWidgetModule', function calls are not supported. Consider replacing the function or lambda with a reference to an exported function, resolving symbol CoreModule in /home/me/UPN/upoint-base-app/src/app/app.module.ts, resolving symbol CoreModule in /home/me/UPN/upoint-base-app/src/app/app.module.ts
+
+// Fixed by changing name in tsconfig.es5.json
+
+"angularCompilerOptions": {
+    "annotateForClosureCompiler": true,
+    "strictMetadataEmit": true,
+    "skipTemplateCodegen": true,
+    "flatModuleOutFile": "advocacycreatehelprequestwidget.js",
+    "flatModuleId": "@alight/advocacycreatehelprequestwidget"
+  },
+```
+--------------------------------------
+ng build --app 0 --prod --aot
+
+
+
+ERROR in Type AppComponent in C:/jr/__UPointNext/NextGen-v3/upoint-base-app/src/app/app.component.ts is part of the declarations
+of 2 modules: CoreModule in C:/jr/__UPointNext/NextGen-v3/upoint-base-app/src/app/app.module.qa.ts and CoreModule in C:/jr/__UP
+ointNext/NextGen-v3/upoint-base-app/src/app/app.module.ts! Please consider moving AppComponent in C:/jr/__UPointNext/NextGen-v3/
+upoint-base-app/src/app/app.component.ts to a higher module that imports CoreModule in C:/jr/__UPointNext/NextGen-v3/upoint-base
+-app/src/app/app.module.qa.ts and CoreModule in C:/jr/__UPointNext/NextGen-v3/upoint-base-app/src/app/app.module.ts. You can als
+o create a new NgModule that exports and includes AppComponent in C:/jr/__UPointNext/NextGen-v3/upoint-base-app/src/app/app.comp
+onent.ts then import that NgModule in CoreModule in C:/jr/__UPointNext/NextGen-v3/upoint-base-app/src/app/app.module.qa.ts and C
+oreModule in C:/jr/__UPointNext/NextGen-v3/upoint-base-app/src/app/app.module.ts.                                               
+ERROR in ./src/main.ts                                                                                                          
+Module not found: Error: Can't resolve './$$_gendir/app/app.module.ngfactory' in 'C:\jr\__UPointNext\NextGen-v3\upoint-base-app\
+src'                                                                                                                            
+resolve './$$_gendir/app/app.module.ngfactory' in 'C:\jr\__UPointNext\NextGen-v3\upoint-base-app\src'                           
+using description file: C:\jr\__UPointNext\NextGen-v3\upoint-base-app\package.json (relative path: ./src)                     
+Field 'browser' doesn't contain a valid alias configuration                                                                 
+after using description file: C:\jr\__UPointNext\NextGen-v3\upoint-base-app\package.json (relative path: ./src)               
+using description file: C:\jr\__UPointNext\NextGen-v3\upoint-base-app\package.json (relative path: ./src/$$_gendir/app/app.m
+odule.ngfactory)                                                                                                                
+no extension                                                                                                              
+Field 'browser' doesn't contain a valid alias configuration                                                             
+C:\jr\__UPointNext\NextGen-v3\upoint-base-app\src\$$_gendir\app\app.module.ngfactory doesn't exist                      
+.ts                                                                                                                       
+Field 'browser' doesn't contain a valid alias configuration                                                             
+C:\jr\__UPointNext\NextGen-v3\upoint-base-app\src\$$_gendir\app\app.module.ngfactory.ts doesn't exist                   
+.js                                                                                                                       
+Field 'browser' doesn't contain a valid alias configuration                                                             
+C:\jr\__UPointNext\NextGen-v3\upoint-base-app\src\$$_gendir\app\app.module.ngfactory.js doesn't exist                   
+as directory                                                                                                              
+C:\jr\__UPointNext\NextGen-v3\upoint-base-app\src\$$_gendir\app\app.module.ngfactory doesn't exist                      
+[C:\jr\__UPointNext\NextGen-v3\upoint-base-app\src\$$_gendir\app\app.module.ngfactory]                                          
+[C:\jr\__UPointNext\NextGen-v3\upoint-base-app\src\$$_gendir\app\app.module.ngfactory.ts]                                       
+[C:\jr\__UPointNext\NextGen-v3\upoint-base-app\src\$$_gendir\app\app.module.ngfactory.js]                                       
+[C:\jr\__UPointNext\NextGen-v3\upoint-base-app\src\$$_gendir\app\app.module.ngfactory]                                          
+@ ./src/main.ts 6:0-75                                                                                                         
+@ multi ./src/main.ts                                                                                                          
+
+
+-------------------------------------------------------
+
+ERROR in Error encountered resolving symbol values statically. Calling function 'AdvocacyChannelsModule', function calls are not su
+pported. Consider replacing the function or lambda with a reference to an exported function, resolving symbol CoreModule in C:/jr/_
+_UPointNext/NextGen-v3/upoint-base-app/src/app-qa/app.module.ts, resolving symbol CoreModule in C:/jr/__UPointNext/NextGen-v3/upoin
+t-base-app/src/app-qa/app.module.ts                                                                                                
+ERROR in ./src/main.ts                                                                                                             
+Module not found: Error: Can't resolve './$$_gendir/app/app.module.ngfactory' in 'C:\jr\__UPointNext\NextGen-v3\upoint-base-app\src
+'                                                                                                                                  
+resolve './$$_gendir/app/app.module.ngfactory' in 'C:\jr\__UPointNext\NextGen-v3\upoint-base-app\src'                              
+using description file: C:\jr\__UPointNext\NextGen-v3\upoint-base-app\package.json (relative path: ./src)                        
+Field 'browser' doesn't contain a valid alias configuration                                                                    
+after using description file: C:\jr\__UPointNext\NextGen-v3\upoint-base-app\package.json (relative path: ./src)                  
+using description file: C:\jr\__UPointNext\NextGen-v3\upoint-base-app\package.json (relative path: ./src/$$_gendir/app/app.modu
+le.ngfactory)
+
+Resolved : Changed order or imported components in index.ts , updated name as per widget name in tsconfig.es5.json
+
+
+Another solution : (https://stackoverflow.com/questions/46035031/angular2-error-in-error-encountered-resolving-symbol-values-statically)
+Alright, after hours of reading I found one useful solution here https://github.com/angular/angular-cli/issues/3854#issuecomment-274344771
+
+to be specific, add paths: { "@angular/*": ["../node_modules/@angular/*"] } to tsconfig.json file, "compilerOptions" option
+
+It solves my problem but still wanna know why.
+-------------------------------------
+Error in base app build after installing AdvocacyChannelsModule widget
+
+ERROR in vendor.bundle.js from UglifyJs
+Unexpected token: name (mockConfig) [vendor.bundle.js:59484,12]
 
 ## Helpful Links of Tutorials
 

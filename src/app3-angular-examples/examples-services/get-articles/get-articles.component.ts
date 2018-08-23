@@ -25,7 +25,8 @@ export class GetArticlesComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        // Method 1 : Simple Service
+        // Method 1 : Simple Service using HTTP get method
+        // ==============================================
         this.getArticleService.getPosts().subscribe(data => {
             this._postsArray = data;
             console.log('Method 1 : Get Articles service :', data);
@@ -35,6 +36,7 @@ export class GetArticlesComponent implements OnInit {
 
 
         // Method 2 : Using Data Sharing Service
+        // ==============================================
         this.getArticleService.getPosts().subscribe(data => {
             // 1. Set data in Observable Subject in data-sharing.service.ts
             this.dataSharingService.setComments(data);
