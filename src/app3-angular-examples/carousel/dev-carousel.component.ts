@@ -1,7 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef, Input, Renderer2, ChangeDetectorRef, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
-import { CarouselUtility } from './dev-carousel.utility';
-import 'rxjs/add/operator/take';
+import { Component, OnInit, AfterViewInit, ElementRef, EventEmitter, Input, Renderer2, ChangeDetectorRef, OnDestroy, Output } from '@angular/core';
 
 @Component({
     selector: 'dev-carousel',
@@ -11,9 +8,9 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public carouselContainer: any;
 
-    public slideIndex = 0;
+    public slideIndex: number = 0;
 
-    public lengthOfSlides = 1;
+    public lengthOfSlides: number = 1;
 
     public currentSlideObject: any;
 
@@ -21,27 +18,27 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public animationEnd;
 
-    public hasArrows = false;
+    public hasArrows: boolean = false;
 
-    public isPlaying = false;
+    public isPlaying: boolean = false;
 
     public dots: any[];
 
-    public _carouselHeight = 250; // Minimum carousel height + 34px for carousel controls height
+    public _carouselHeight: number = 250; // Minimum carousel height + 34px for carousel controls height
 
     public _uuid: string;
 
-    public currentSlide: any;
+    initialized: boolean = false;
+
+    public classForCurrentSlide: string = '';
+
+    public classForTargetSlide: string = '';
 
     public targetSlide: any;
 
-    public slides: any;
+    public allSlides: any;
 
-    public currentClass: string;
-
-    public targetClass: string;
-
-    public eventBinded = false;
+    @Input() slideTransitionDuration: number = 1;
 
     @Input() ariaLabels = {
         'previousSlideButtonLabel': 'Previous Slide',
@@ -52,11 +49,11 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
         'carouselControlSectionLabel': 'Carousel controls'
     };
 
-    @Input() autoPlay = true;
+    @Input() autoPlay: boolean = true;
 
     @Input() carouselDataItems: any[];
 
-    @Input() autoPlayInterval = 3000;
+    @Input() autoPlayInterval: number = 3000;
 
     @Input() carouselBrandClass: string;
 
@@ -75,42 +72,22 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
         this._uuid = 'carousel_' + Math.random().toString(36).substring(2);
     }
 
-    constructor(
-        private _el: ElementRef,
-        private renderer: Renderer2,
-        private cdr: ChangeDetectorRef,
-        @Inject(DOCUMENT) private document: any,
-        private carouselUtility: CarouselUtility
-    ) {
+    // Events
+    @Output() afterSlideChange: EventEmitter<any> = new EventEmitter();
 
-    }
+    @Output() onCarouselPause: EventEmitter<any> = new EventEmitter();
+
+    @Output() onCarouselStart: EventEmitter<any> = new EventEmitter();
+
+    constructor(private _el: ElementRef, private renderer: Renderer2, private cdr: ChangeDetectorRef) { }
 
     ngOnInit() {
-        this.carouselContainer = this._el.nativeElement.firstElementChild;
+        this.initialized = true;
 
-        this.carouselUtility.isBrowserTabfocused.take(1).subscribe((data) => {
-            console.log('Page visible :', data);
-            this.toggleAnimationOnPageVisibility(data);
-        });
-    }
-
-    // If the page is hidden, pause the carousel;
-    // if the page is shown, play the carousel
-    toggleAnimationOnPageVisibility(isPageVisible) {
-        if (!isPageVisible) {
-            if (this.autoPlay && this.isPlaying) {
-                this.pauseSlideShow();
-            }
-        } else {
-            if (this.lengthOfSlides > 1) {
-                if (this.autoPlay && !this.isPlaying) {
-                    this.playSlideShow();
-                }
-            }
-        }
     }
 
     ngAfterViewInit() {
+        this.carouselContainer = this._el.nativeElement.firstElementChild;
         this.initCarousel();
     }
 
@@ -118,9 +95,25 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
         // start at [data-slide-index]
         this.slideIndex = this.carouselContainer.getAttribute('data-slide-index') ? parseInt(this.carouselContainer.getAttribute('data-slide-index'), 10) : 0;
 
+        // All Slides in single carousel
+        this.allSlides = this.carouselContainer.querySelectorAll('.carousel__slide');
+
+        // Bind Animation event handlers
+        this.completeAnimationHandlerForTargetSlide = this.completeAnimationHandlerForTargetSlide.bind(this);
+        this.completeAnimationHandlerForCurrentSlide = this.completeAnimationHandlerForCurrentSlide.bind(this);
+
+        // Set animation duration, if provided by user input. Default duration is 0.5s
+        if (this.allSlides) {
+            if (this.slideTransitionDuration) {
+                [].forEach.call(this.allSlides, (slide, index) => {
+                    this.renderer.setStyle(slide, 'animation-duration', Number(this.slideTransitionDuration) + 's');
+                });
+            }
+        }
+
         // store length of total slides
         this.lengthOfSlides = this.carouselContainer.querySelectorAll('.carousel__slide').length;
-        this.slides = this.carouselContainer.querySelectorAll('.carousel__slide');
+
         // Get all dot navigation elements
         this.dots = this.carouselContainer.querySelectorAll('.carousel__dot');
 
@@ -202,64 +195,41 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     // Play Slideshow
-    pauseSlideShow() {
+    pauseSlideShow(event) {
         this.isPlaying = false;
         clearInterval(this.slideChangeInterval);
+        this.removeAllAnimEventHandlers();
 
-        // Remove all animation event handlers
-        this.toggleAnimationEventBinding('REMOVE');
+        // Emit event on Carousel Pause
+        this.onCarouselPause.emit({ event: event, ui: this, message: 'Carousel Paused' });
     }
 
     // Pause slideshow
     playSlideShow() {
         this.isPlaying = true;
+        let interval = this.autoPlayInterval;
+        if (typeof interval !== 'number') {
+            interval = Number(interval);
+        }
 
-        // Add animation event handlers to all slides
-        this.toggleAnimationEventBinding('ADD');
+        if (this.slideTransitionDuration) {
+            interval += (Number(this.slideTransitionDuration) * 1000);
+        }
 
         this.slideChangeInterval = setInterval(() => {
             this.slideRight();
-        }, this.autoPlayInterval);
-    }
+        }, interval);
 
-    toggleAnimationEventBinding(eventType) {
-        if (this.slides) {
-            [].forEach.call(this.slides, (slide, index) => {
-                if (this.animationEnd) {
-                    if (eventType && eventType === 'ADD') {
-                        slide.addEventListener(this.animationEnd, this.completeAnimationHandler.bind(this), false);
-                    }
-                    if (eventType && eventType === 'REMOVE') {
-                        slide.removeEventListener(this.animationEnd, this.completeAnimationHandler, false);
-                    }
-                }
-            });
-        }
-    }
-
-    completeAnimationHandler(event) {
-        // console.log('1 : Transition complete!  This is the callback, no library needed!');
-        this.renderer.removeClass(this.currentSlide, this.currentClass);
-
-        setTimeout(() => {
-            this.renderer.removeClass(this.targetSlide, this.targetClass);
-            this.renderer.removeClass(this.carouselContainer, 'preventDoubleTap');
-            event.target.removeEventListener(this.animationEnd, this.completeAnimationHandler, false);
-            this.targetSlide.removeEventListener(this.animationEnd, this.completeAnimationHandler, false);
-        }, 0);
+        // Emit event on Carousel Play
+        this.onCarouselStart.emit({ ui: this, message: 'Carousel Started' });
     }
 
     // Go to specific slide
     goToSlide(event) {
         /* istanbul ignore if */
         if (event && event.target && event.target.nodeName === 'A') {
-            this.pauseSlideShow();
-            if (!this.eventBinded) {
-                // Add animation event handlers to all slides
-                this.toggleAnimationEventBinding('ADD');
-                this.eventBinded = true;
-            }
-            const jumpTo = parseInt(event.target.getAttribute('data-slide-index'), 10);
+            this.pauseSlideShow(event);
+            let jumpTo = parseInt(event.target.getAttribute('data-slide-index'), 10);
             if (jumpTo === this.slideIndex || jumpTo > this.lengthOfSlides || jumpTo < 0) {
                 return false;
             } else if (jumpTo > this.slideIndex) {
@@ -274,7 +244,7 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // Accessiility : Navigate between slides using Left and right arrow keys
     onKeyDownGoToSlide(event) {
-        this.pauseSlideShow();
+        this.pauseSlideShow(event);
         /* istanbul ignore if */
         if (event && event.target && event.target.nodeName === 'A') {
             if (event.keyCode === 37) {
@@ -321,31 +291,35 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
         let class_for_current = dir === '_R' ? 'prev' : 'next';
         let class_for_target = dir === '_R' ? 'next' : 'prev';
 
-        this.currentClass = class_for_current;
-        this.targetClass = class_for_target;
+        this.classForCurrentSlide = class_for_current;
+        this.classForTargetSlide = class_for_target;
 
         // anim out current
         let current_slide = this.currentSlideObject;
-        this.currentSlide = this.currentSlideObject;
 
         this.renderer.addClass(current_slide, class_for_current);
         this.renderer.removeClass(current_slide, 'active');
         this.renderer.setAttribute(current_slide, 'aria-hidden', 'true'); // Accessiility
 
         // remove
-        /*current_slide.addEventListener(this.animationEnd, (event) => {
+        current_slide.addEventListener(this.animationEnd, this.completeAnimationHandlerForCurrentSlide, true);
+
+        /* current_slide.addEventListener(this.animationEnd, (event) => {
             this.renderer.removeClass(current_slide, class_for_current);
             current_slide.removeEventListener(this.animationEnd, () => { });
-        });*/
+        }); */
 
         // anim in next
-        const target_slide = this.carouselContainer.querySelector('.carousel__slide[data-slide-index="' + this.slideIndex + '"]');
-        this.targetSlide = this.carouselContainer.querySelector('.carousel__slide[data-slide-index="' + this.slideIndex + '"]');
+        let target_slide = this.carouselContainer.querySelector('.carousel__slide[data-slide-index="' + this.slideIndex + '"]');
+        this.targetSlide = target_slide;
+
         this.renderer.addClass(target_slide, class_for_target);
         this.renderer.addClass(target_slide, 'active');
         this.renderer.setAttribute(target_slide, 'aria-hidden', 'false'); // Accessiility
 
         // remove
+        current_slide.addEventListener(this.animationEnd, this.completeAnimationHandlerForTargetSlide, true);
+
         /* current_slide.addEventListener(this.animationEnd, (event) => {
             this.renderer.removeClass(target_slide, class_for_target);
             // remove top level class
@@ -356,6 +330,33 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
         // update current slide
         this._updateCurrentSlideObj();
 
+    }
+
+    // AnimationEnd Event handler for Current Slide
+    completeAnimationHandlerForCurrentSlide(event) {
+        this.renderer.removeClass(event.target, this.classForCurrentSlide);
+        event.target.removeEventListener(this.animationEnd, this.completeAnimationHandlerForCurrentSlide, true);
+    }
+
+    // AnimationEnd Event handler for Target Slide
+    completeAnimationHandlerForTargetSlide(event) {
+        this.renderer.removeClass(this.targetSlide, this.classForTargetSlide);
+        // remove top level class
+        this.renderer.removeClass(this.carouselContainer, 'preventDoubleTap');
+        event.target.removeEventListener(this.animationEnd, this.completeAnimationHandlerForTargetSlide, true);
+
+        // Emit event after slide change
+        this.afterSlideChange.emit({ event: event, ui: this, message: 'Slide change animation complete.' })
+    }
+
+    // Remove animation event handlers from all the slides, on Click of Pause button
+    removeAllAnimEventHandlers() {
+        if (this.allSlides) {
+            [].forEach.call(this.allSlides, (slide, index) => {
+                slide.removeEventListener(this.animationEnd, this.completeAnimationHandlerForCurrentSlide, true);
+                slide.removeEventListener(this.animationEnd, this.completeAnimationHandlerForTargetSlide, true);
+            });
+        }
     }
 
 	/**
@@ -407,15 +408,15 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
 	 * Utilities
 	 */
     whichAnimationEvent() {
-        const el = document.createElement('fakeelement');
-        const animations = {
+        let el = document.createElement('fakeelement');
+        let animations = {
             'animation': 'animationend',
             'OAnimation': 'oAnimationEnd',
             'MozAnimation': 'animationend',
             'WebkitAnimation': 'webkitAnimationEnd'
         };
 
-        for (const t in animations) {
+        for (let t in animations) {
             /* istanbul ignore if */
             if (el.style[t] !== undefined) {
                 return animations[t];
@@ -423,33 +424,11 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
         }
     }
 
-    /* From Modernizr */
-    whichTransitionEvent() {
-        const el = document.createElement('fakeelement');
-        const transitions = {
-            'transition': 'transitionend',
-            'OTransition': 'oTransitionEnd',
-            'MozTransition': 'transitionend',
-            'WebkitTransition': 'webkitTransitionEnd'
-        };
-
-        for (const t in transitions) {
-            if (el.style[t] !== undefined) {
-                return transitions[t];
-            }
-        }
-    }
-
-    public _window(): any {
-        // return the native window obj
-        return window;
-    }
-
     ngOnDestroy() {
-        if (this.slides) {
-            [].forEach.call(this.slides, (slide, index) => {
-                slide.removeEventListener(this.animationEnd, this.completeAnimationHandler, false);
-            });
+        this.initialized = false;
+        if (this.slideChangeInterval) {
+            clearInterval(this.slideChangeInterval);
         }
     }
+
 }

@@ -29,7 +29,7 @@
     top: 0;
     opacity: 0;
     z-index: -3;
-    will-change: transform;
+    will-change: transform, animation;
 
     .carousel__link {
         display: block;
@@ -171,3 +171,14 @@
 }
 .carousel__slide.prev.active { animation-name: slideLeftIn; }
 .carousel__slide.next { animation-name: slideRightOut; }
+
+
+/*----------------------------------------------
+    Overridden CSS to Fix issues
+------------------------------------------------*/
+/* PCA-5854 : Fixed bottom extra margin issue */
+.carousel__container {
+    .tile-wrapperLink {
+        margin-bottom: 0;
+    }
+}
