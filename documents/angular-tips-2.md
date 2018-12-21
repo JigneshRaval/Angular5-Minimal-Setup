@@ -798,3 +798,56 @@ Could not find a declaration file for module 'lodash'. 'c:/jr/__UPointNext/NextG
 
 Solution: Try `npm install @types/lodash` if it exists or add a new declaration (.d.ts) file containing `declare module 'lodash';`
 ```
+
+### Angular: Set Focus on Element
+
+https://www.thecodecampus.de/blog/angular-2-set-focus-element/
+
+```typescript
+import { Component, ElementRef, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+
+@Component({
+  selector: 'my-app',
+  styleUrls: [ './app.component.css' ],
+  template: `
+             <input #myInput/>
+             <button (click)="setFocus('myInput')">Focus Input</button>
+            `
+})
+export class AppComponent  {
+  @ViewChild('myInput') myInput: ElementRef;
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
+  setFocus() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.myInput.nativeElement.focus();
+    }
+  }
+}
+```
+
+### Call a method on @Input() change
+
+https://www.thecodecampus.de/blog/call-a-method-when-input-changes/
+
+```typescript
+private _filter: string;
+
+@Input()
+set filter(value: string) {
+  this._filter = value;
+  if (value !== null) {
+    // call your stuff
+    this.filterMyData(value);
+  }
+}
+get filter() {
+  return this._filter;
+}
+```
+
+### Solution
+
+You could use the `OnChanges` interface with the `ngOnChanges(changes: SimpleChanges): void` Method to listen to all `@Input()` changes.
