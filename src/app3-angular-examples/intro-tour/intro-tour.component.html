@@ -1,0 +1,81 @@
+<div class="introbox tour-wrapper intro-overlay-component" [hidden]="isTourSkipped || isTourCompleted">
+
+	<!-- START : Intro Tour Welcome screen -->
+
+	<div class="intro-tour-overlay" [hidden]="isTourStarted || isTourCompleted">
+		<div class="intro-tour-box">
+			<!-- Welcome screen : Title -->
+			<h3>{{introTourDataObj.introTour.heading}}</h3>
+
+			<!-- Welcome screen : Content -->
+			<p>{{introTourDataObj.introTour.content}}</p>
+
+			<a href="#" class="ah-introbox-hiddenLink-back" aria-hidden="true" (focus)="setTabIndex($event)"></a>
+
+			<div class="intro-tour-btn-group">
+				<!-- Button : Start Tour -->
+				<button pButton type="button" label="{{introTourDataObj.introTour.buttons[0].startLabel}}" title="{{introTourDataObj.introTour.buttons[0].startLabel}}"
+				 class="button-positive button-large intro-tour-start" (click)="startIntroTour($event)" #btnStartIntroTour></button>
+
+				<!-- Button : Skip Tour -->
+				<button pButton type="button" label="{{introTourDataObj.introTour.buttons[1].skipLabel}}" title="{{introTourDataObj.introTour.buttons[1].skipLabel}}"
+				 class="button-neutral button-large intro-tour-skip" (click)="skipIntroTour($event)"></button>
+			</div>
+
+			<a href="#" class="ah-introbox-hiddenLink" aria-hidden="true" (focus)="setTabIndex($event)"></a>
+
+		</div>
+	</div>
+
+	<!-- END : Intro Tour Welcome screen -->
+
+	<!-- START : Intro box for each step -->
+
+	<div class="intro-box-wrapper" [hidden]="!isTourStarted">
+		<div class="intro-highlightOverlay"></div>
+		<div class="intro-topOverlay"></div>
+		<div class="intro-leftOverlay"></div>
+		<div class="intro-rightOverly"></div>
+		<div class="intro-bottomOverlay"></div>
+
+		<div class="intro-box">
+			<span class="intro-arrow"></span>
+			<div class="intro-msg">
+				<!-- Step : Title -->
+				<h4>{{currentStepHeading}}</h4>
+
+				<!-- Step : Content -->
+				<p>{{currentStepContent}}</p>
+			</div>
+
+			<a href="#" class="ah-introbox-hiddenLink-back" aria-hidden="true" (focus)="setTabIndex($event)"></a>
+
+			<div class="intro-btn-group clearfix">
+				<!-- Button : Next Step -->
+				<button pButton type="button" label="{{introTourDataObj.buttonsLables.nextlabel}}" title="{{introTourDataObj.buttonsLables.nextlabel}}"
+				 class="button-positive button-large intro-btn-next" [hidden]="!hasNextStep" (click)="nextStep($event)"
+				 #btnIntroTourNextStep></button>
+
+				<!-- Button : Done -->
+				<button pButton type="button" label="{{introTourDataObj.buttonsLables.donelabel}}" title="{{introTourDataObj.buttonsLables.donelabel}}"
+				 class="button-positive button-large intro-btn-done" [hidden]="hasNextStep" (click)="doneStep($event)"
+				 #btnIntroTourDoneStep></button>
+
+				<!-- Progress Indicators -->
+				<div class="intro-progress-indicator">
+					<span class="intro-progress-dot" *ngFor="let step of introTourDataObj.steps; let i = index;" [attr.data-seq]="i"
+					 [ngClass]="{'current': currentStepIndex === i, 'visited': i < currentStepIndex}"></span>
+				</div>
+
+				<!-- Skip Intro Link -->
+				<a class="intro-btn-skip" href="javascript:void(0)" (click)="skipStep($event)">{{introTourDataObj.buttonsLables.skiplabel}}</a>
+			</div>
+
+			<a href="#" class="ah-introbox-hiddenLink" aria-hidden="true" (focus)="setTabIndex($event)"></a>
+			<!-- <div class="intro-box-bg"></div> -->
+		</div>
+	</div>
+
+	<!-- END : Intro box for each step -->
+
+</div>
