@@ -1041,3 +1041,23 @@ describe('Component: Login', () => {
 ## Tutorials Referances
 [Angular: Unit Testing Jasmine, Karma (step by step)]
 (https://medium.com/frontend-fun/angular-unit-testing-jasmine-karma-step-by-step-e3376d110ab4)
+
+Introduction to Unit Testing in Angular
+https://alligator.io/angular/introduction-unit-testing/
+
+Testing Angular with Jasmine and Karma (Part 1)
+https://scotch.io/tutorials/testing-angular-with-jasmine-and-karma-part-1
+
+Angular: Unit Testing Jasmine, Karma (step by step)
+https://medium.com/frontend-fun/angular-unit-testing-jasmine-karma-step-by-step-e3376d110ab4
+
+https://github.com/blacksonic/angular-testing-ground/blob/master/src/app/testing-http-services/github.service.spec.ts
+
+Testing HTTP requests in Angular has never been easier
+https://blog.craftlab.hu/testing-http-requests-in-angular-has-never-been-easier-dfe53c267522
+
+Testing with the Angular HttpClient API
+https://medium.com/netscape/testing-with-the-angular-httpclient-api-648203820712
+
+Testing HttpClient Requests in Angular
+https://alligator.io/angular/testing-httpclient/
