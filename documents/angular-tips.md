@@ -261,6 +261,23 @@ WARNING in ./~/apollo-client/transport/batchedNetworkInterface.js
 		</div>
 	</ng-container>
 
+```
+<ng-container
+  *ngIf="isLoggedIn; then loggedIn; else loggedOut">
+</ng-container>
+
+<ng-template #loggedIn>
+  <div>
+    Welcome back, friend.
+  </div>
+</ng-template>
+<ng-template #loggedOut>
+  <div>
+    Please friend, login.
+  </div>
+</ng-template>
+```
+
 11. <ng-template #followingpost let-author="author" let-age="age" let-text="text" let-badge="badge">
     <div class="container-fluid">
         <div class="card">
@@ -338,6 +355,7 @@ function localStorageSupported() {
 16:Angular Tips: Avoiding duplication of RxJS operator imports (https://loiane.com/2017/08/angular-rxjs-imports/)
 
 	Create file  : src/app/shared/rxjs-operators.ts - Below is how it looks like:
+```
 	// Observable class extensions
 	import 'rxjs/add/observable/of';
 
@@ -350,7 +368,11 @@ function localStorageSupported() {
 	import 'rxjs/add/operator/filter';
 	import 'rxjs/add/operator/debounceTime';
 	import 'rxjs/add/operator/distinctUntilChanged';
-
+	import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/retry';
+import 'rxjs/add/operator/retryWhen';
+```
 	You can import it directly in you app.module:
 	import './rxjs-operators';
 
@@ -358,7 +380,7 @@ function localStorageSupported() {
 		import { Observable } from 'rxjs/Observable';
 		import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 		import { Subject } from 'rxjs/Subject';
-		import { Subscription } from 'rxjs/Subscription';
+        import { Subscription } from 'rxjs/Subscription';
 
 		import 'rxjs/add/observable/timer';
 		import 'rxjs/add/observable/fromEvent';

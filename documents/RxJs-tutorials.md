@@ -565,3 +565,78 @@ From 1st sub: Hey now!
 From 1st sub: 5
 From 2nd sub: 5
 ```
+
+### IndexedDB get data using RxJs mergeMap
+
+```javascript
+/* istanbul ignore next */
+public getRecordFromObjStore(storeName: string, key: string) {
+    // Gets the object store.
+    if (LoggingService.uConsole) {
+        console.log('IDBService.getRecordFromObjStore()', storeName, key);
+    }
+    const open$ = this.openDB('Upoint_DB', 'general');
+    return mergeMap.call(open$, (db: IDBDatabase) => {
+        return new Observable((observer: Observer<string>) => {
+            let store: IDBObjectStore = this.getObjectStore(storeName, 'readonly');
+            let request: IDBRequest = store.get(key); // Adds a new record.
+            // Success.
+            request.onsuccess = (event: Event) => {
+                if (LoggingService.uConsole) {
+                    console.log('IDBService.getRecordFromObjStore() - Key found successfully', storeName, key, event.target['result']);
+                }
+                observer.next(event.target['result']);
+                observer.complete();
+            };
+            // Error.
+            request.onerror = (event: Event) => {
+                if (LoggingService.uConsole) {
+                    console.log('IDBService.getRecordFromObjStore() - Error getting record from object store ', storeName, key, event);
+                }
+                this.loggingService._debug('IDBService.getRecordFromObjStore() - Error getting record from object store ' + event, 'UI Core', LoggingConstants.INFO);
+                observer.error((<IDBRequest>event.target).error.name);
+            };
+        });
+    });
+}
+
+// USAGE
+// ===========
+Observable.from(this.indexedDbService.getRecordFromObjStore('header', 'headerCache'))
+.map(w => {
+	console.log('IDB Map 123 : ', w);
+	if (!w) {
+		throw new Error('IDB. Retrying...');
+	}
+
+	/* w.subscribe(data => {
+    console.log('IDB Map : ', data);
+	}) */
+	return w;
+})
+.retryWhen(errors => errors.delay(1000).take(3))
+.subscribe(data => {
+    console.log('IDB DATA 1 :', data);
+    }, (err) => {
+    console.log('IDB ERROR 1 :', err);
+});
+
+```
+
+### RxJs : Use of retryWhen with localStorage or sessionStorage data
+
+```javascript
+let myData;
+
+// Retry to get data if error occurs
+return Observable.of(this.domStorageFB.getItem('MY_DATA', 'localStorage'))
+    .map(w => {
+        this.myData = this.domStorageFB.getItem('MY_DATA', 'localStorage');
+        if (!this.myData) {
+            // return Observable.throw('Third Party Legal Disclaimer : error in getting data from localStorage. Retrying...');
+            throw new Error('Error in getting data. Retrying...');
+        }
+        return this.myData;
+    })
+    .retryWhen(errors => errors.delay(1000).take(3)); // Try three more time ( 1 default + 3 Retry at delay of 1000ms )
+```
