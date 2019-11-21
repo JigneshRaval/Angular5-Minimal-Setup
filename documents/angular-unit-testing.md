@@ -1,18 +1,19 @@
 # Unit testing using Angular + Jasmin + Karma
 
-```
+```javascript
 const compiled = fixture.debugElement.nativeElement;
 expect(compiled.querySelector('.typo-redesign')).not.toBe(null);
 
 it('should verify Image only Templates', () => {
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.ah-tile-img')).not.toBe(null);
-    expect(compiled.querySelector('.ah-tile-img')).not.toBe(null);
+    expect(compiled.querySelector('.tile-img')).not.toBe(null);
+    expect(compiled.querySelector('.tile-img')).not.toBe(null);
 });
 ```
 
 ## Events
-```
+
+```javascript
 it( 'should close on info container click', () => {
     spyOn( component, 'closeInfoLayer' );
     const el: HTMLElement = fixture.debugElement.query(By.css('.dpm-info__layerContainer')).nativeElement;
@@ -32,36 +33,43 @@ it( 'should close on info container click', () => {
 ## Errors and Solutions
 
 ### I get the error 'Error: Can't resolve all parameters for ActivatedRoute: (?, ?, ?, ?, ?, ?, ?, ?).'
-```
+
+```javascript
 const fakeActivatedRoute = {
     snapshot: { data: {} }
 }
 { provide: ActivatedRoute, useClass: fakeActivatedRoute },
 ```
+
 OR
 
-```
+```javascript
 class MockRouter {
   navigate = jasmine.createSpy('navigate');
 }
 ```
 
+```javascript
 TestBed.configureTestingModule({
   declarations: [MyComponent],
   providers: [
     {provide: Router, useClass: MockRouter}
   ]
 });
+```
 
 ### Error : angular 4 unit testing error `TypeError: ctor is not a constructor`
-#### Solution :
+
+#### Solution:
+
 Here is an example that fires the error : providers: [{provide: OrderService, useClass: new OrderServiceMock()}]
 The correct declaration is : providers : [{provide: OrderService, useValue: new OrderServiceMock()}]
 
 ### Error : TypeError: Cannot read property 'root' of undefined
 
 #### Solution: Add ActivatedRoute
-```
+
+```javascript
 TestBed.configureTestingModule({
     providers: [
         {
@@ -73,10 +81,12 @@ TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA]
 }).compileComponents();
 ```
+
 Full Example of Component testing having Routes:
 
 Version : 1
 --------------------
+```javascript
 // styleguide-tabs.component.spec.ts
 
 // Angular Imports
@@ -93,7 +103,7 @@ import { BrowserModule, By } from '@angular/platform-browser';
 
 // Component Imports
 // =============================
-import { AlCoreModuleLibrary, AppUtility } from '@alight/uicore';
+import { AlCoreModuleLibrary, AppUtility } from '@mylight/uicore';
 import { StyleGuideTabs } from './styleguide-tabs.component';
 import { MedicalTabContentComponent } from './medical-tab.component';
 import { HealthTabContentComponent } from './health-tab.component';
@@ -219,9 +229,12 @@ fdescribe('StyleGuideTabs', () => {
     });
 
 });
+```
 
 Version : 2
 --------------------
+
+```javascript
 // styleguide-tabs.component.spec.ts
 
 // Angular Imports
@@ -238,7 +251,7 @@ import { BrowserModule, By } from '@angular/platform-browser';
 
 // Component Imports
 // =============================
-import { AlCoreModuleLibrary, AppUtility } from '@alight/uicore';
+import { AlCoreModuleLibrary, AppUtility } from '@mylight/uicore';
 import { StyleGuideTabs } from './styleguide-tabs.component';
 import { MedicalTabContentComponent } from './medical-tab.component';
 import { HealthTabContentComponent } from './health-tab.component';
@@ -400,6 +413,7 @@ fdescribe('StyleGuideTabs', () => {
     });
 
 });
+```
 
 --------------------------------
 https://stackoverflow.com/questions/39577920/angular-2-unit-testing-components-with-routerlink/39579009#39579009
@@ -407,11 +421,11 @@ https://stackoverflow.com/questions/39577920/angular-2-unit-testing-components-w
 https://stackoverflow.com/questions/47201037/angular-unit-testing-error-cannot-match-any-routes-url-segment-home-adviso?rq=1
 Start with
 
-import { RouterTestingModule } from '@angular/router/testing';
+`import { RouterTestingModule } from '@angular/router/testing';`
 
 Then, in your Testbed
 
-imports: [RouterTestingModule]
+`imports: [RouterTestingModule]`
 
 Now you should be able to unit test your component
 
@@ -423,10 +437,12 @@ spyOn(component.router, 'navigate').and.returnValue(true);
 
 And you expect will look like
 
-expect(component.router.navigate).toHaveBeenCalledWith('/home/advisor');
+`expect(component.router.navigate).toHaveBeenCalledWith('/home/advisor');`
+
 -------------
 https://stackoverflow.com/questions/39791773/angular-2-unit-testing-with-router
 ----------
+
 const event = new MouseEvent('click');
 spyOn(event, 'preventDefault');
 ---------------
@@ -491,7 +507,9 @@ https://codereview.stackexchange.com/questions/165209/jasmine-unit-test-that-tri
 
     }));
 
-Another approch:
+#### Another approch:
+
+```javascript
  function triggerEvents(debugElement: DebugElement, eventName: string, object: any) {
             debugElement.triggerEventHandler(eventName, object);
         }
@@ -511,6 +529,7 @@ Another approch:
             }
 
         }));
+
 -------------- Phantomjs error (karma.config.js)
 
 captureTimeout: 210000,
@@ -558,10 +577,13 @@ it('should trigger onChange', async () => {
     await new Promise(resolve => setTimeout(resolve, 1));
     expect(pin.state('value')).toBe('0123');
 });
+```
 
--------------------- viewChild example
+#### viewChild example
+
 http://qaru.site/questions/279867/angular-2-unit-testing-viewchild-is-undefined
---
+
+```javascript
 import { TestBed, ComponentFixture, async } from '@angular/core/testing';
 
 import { Component, DebugElement } from '@angular/core';
@@ -591,10 +613,13 @@ describe('Example Test', () => {
     expect(timepickerChild).toBeDefined();
   }));
 });
+```
 
---------------- LocalStorage Testing
+#### LocalStorage Testing
+
 REF : https://gist.github.com/wzr1337/b3fe4abcc46588aa8fcb
 
+```javascript
 /// <reference path="../../library.test.d.ts"/>
 import * as angular from "angular"; angular;
 import * as mocks from "angular-mocks/ngMock"; mocks;
@@ -653,17 +678,23 @@ describe('feat(localStorage Mock): ', function() {
     expect(localStorage.getItem('bar')).toBeNull(); // null
   });
 });
--------------- ARRAY
+```
+
+#### ARRAY
+
 https://www.reddit.com/r/javascript/comments/5bggb3/testing_multiple_objects_in_array_karma_jasmine/
 
+```javascript
 it ('should foo in the bar', function() {
      for (var i = 0, n = foo.length, i < n; i++) {
           expect(foo.bar[i]).toEqual('barFoo');
     }
 });
+```
+
 If it's an array of primitives (e.g. strings)/we aren't asserting a key in an object (looks like this from the example) and the array isn't too long (e.g. 6 items), then use deep equality:
 
-expect(foo.bar).to.deep.equal(['barFoo', 'barFoo', 'barFoo', 'barFoo', 'barFoo', 'barFoo']);
+`expect(foo.bar).to.deep.equal(['barFoo', 'barFoo', 'barFoo', 'barFoo', 'barFoo', 'barFoo']);`
 
 The reasoning is:
 
@@ -677,21 +708,21 @@ For long arrays, use new Array(100).fill('barFoo')
 
 For dynamic length arrays, the test shouldn't be asserting values of dynamic length. You are probably missing mock data somewhere
 
------------------- Unit testing angular 5 component with @ViewChild
-
+### Unit testing angular 5 component with @ViewChild
 
 You can do something like this.
 
-Create a spy object for the ChildComponent like this.
+1. Create a spy object for the ChildComponent like this.
 
-const childComponent: jasmine.createSpyObj('ChildComponent', ['childMethod']);
+`const childComponent: jasmine.createSpyObj('ChildComponent', ['childMethod']);`
 
-Then in the test set the component's child component property to the spy that you have created.
+2. Then in the test set the component's child component property to the spy that you have created.
 
-  component.childComponent =  childComponent;
+  `component.childComponent =  childComponent;`
 
 Your test file should lokk like this.
 
+```javascript
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChildComponent } from './child.component';
@@ -724,22 +755,28 @@ beforeEach(() => {
     });
 
 });
+```
 
------------- events
+#### events
+
 REF: https://github.com/ariya/phantomjs/issues/11289
-function emit(el, eventName) {
-        var event;
-        if (document.createEvent) {
-            event = new Event(eventName);
-            el.dispatchEvent(event);
-        } else {
-            event = document.createEventObject();
-            el.fireEvent('on' + eventName, event);
-        }
-    }
 
-Example 2 : REF: https://github.com/ariya/phantomjs/issues/11289
-=========
+```javascript
+function emit(el, eventName) {
+  var event;
+  if (document.createEvent) {
+      event = new Event(eventName);
+      el.dispatchEvent(event);
+  } else {
+      event = document.createEventObject();
+      el.fireEvent('on' + eventName, event);
+  }
+}
+```
+
+##### Example 2 : REF: https://github.com/ariya/phantomjs/issues/11289
+
+```javascript
 // <input id="my-input-element" type="text" value="foo"/>
 var evt, node = document.getElementById('my-input-element');
 
@@ -764,16 +801,19 @@ if (node.dispatchEvent) {
   evt.keyCode = 32;
   node.fireEvent('onkeyup', evt);
 }
-Example 3:
-===========
+```
 
-You should be able to spyOn the document.getElementById and return the useful properties (i.e. value here). Like this,
+##### Example 3:
 
+You should be able to `spyOn` the `document.getElementById` and return the useful properties (i.e. value here). Like this,
+
+```javascript
 spyOn(document, "getElementById").and.callFake(function() {
     return {
         value: 'test'
     }
 });
+```
 
 And then if you want, you can expect it to have been called,
 
@@ -842,11 +882,14 @@ beforeEach(() => {
 });
 
 No need for inject, and it's a lot less verbose. You can now use done. Or if you want, still do it the Angular way, and use async.
+
 ## Testing Asynchronous Code
+
 REF.: https://codecraft.tv/courses/angular/unit-testing/asynchronous/
 
 ### No Async call:
-```
+
+```javascript
 it('Button label via jasmine.done', () => {
     fixture.detectChanges();
     expect(el.nativeElement.textContent.trim()).toBe('Login');
@@ -858,7 +901,8 @@ it('Button label via jasmine.done', () => {
 ```
 
 ### Sync Call using DONE
-```
+
+```javascript
 it('Button label via jasmine.done', (done) => {
     fixture.detectChanges();
     expect(el.nativeElement.textContent.trim()).toBe('Login');
@@ -874,7 +918,8 @@ it('Button label via jasmine.done', (done) => {
 ```
 
 ### Async and whenStable:
-```
+
+```javascript
 it('Button label via async() and whenStable()', async(() => {
   fixture.detectChanges();
   expect(el.nativeElement.textContent.trim()).toBe('Login');
@@ -886,8 +931,10 @@ it('Button label via async() and whenStable()', async(() => {
   component.ngOnInit();
 }));
 ```
+
 ### fakeAsync and tick:
-```
+
+```javascript
 it('Button label via fakeAsync() and tick()', fakeAsync(() => {
   expect(el.nativeElement.textContent.trim()).toBe('');
   fixture.detectChanges();
@@ -900,6 +947,7 @@ it('Button label via fakeAsync() and tick()', fakeAsync(() => {
   expect(el.nativeElement.textContent.trim()).toBe('Logout');
 }));
 ```
+
 Like async we wrap the test spec function in a function called fakeAsync.
 We call tick() when there are pending asynchronous activities we want to complete.
 
@@ -910,7 +958,7 @@ fakeAsync does have some drawbacks, it doesn’t track XHR requests for instance
 
 ### Complete Example: https://codecraft.tv/courses/angular/unit-testing/asynchronous/
 
-```
+```javascript
 // auth.service.ts
 
 export class AuthService {
@@ -920,7 +968,7 @@ export class AuthService {
 }
 ```
 
-```
+```javascript
 // login.component.ts
 
 import {Component} from '@angular/core';
@@ -950,7 +998,7 @@ export class LoginComponent implements  OnInit {
 }
 ```
 
-```
+```javascript
 /* tslint:disable:no-unused-variable */
 import {TestBed, async, whenStable, fakeAsync, tick, ComponentFixture} from '@angular/core/testing';
 import {LoginComponent} from './login.component';
@@ -1035,6 +1083,516 @@ describe('Component: Login', () => {
       done();
     });
   });
+});
+```
+
+### Structural Directive unit testing
+
+```javascript
+import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { IDBService } from '../services/indexdb/idb.service';
+import { AppUtility } from '../utils/utility';
+
+@Directive({
+    selector: '[checkEligiblity]',
+})
+export class CheckEligibilityDirective {
+
+    eligibility: boolean = false;
+    pageName: string;
+    @Input() params: string;
+    pageData: any = {};
+    selName: string;
+
+    constructor(private idbService: IDBService,
+        private appUtility: AppUtility,
+        private templateRef: TemplateRef<any>,
+        private viewContainer: ViewContainerRef
+      ) {
+      }
+    @Input()
+    set checkEligiblity(val) {
+        this.pageName = 'ag_'+this.appUtility.getPageNameFromURL()+'_params';
+        let value = this.checkEligibility(this.pageName, val);
+        if (value) {
+            this.viewContainer.createEmbeddedView(this.templateRef);
+        } else {
+            this.viewContainer.clear();
+        }
+    }
+
+    checkEligibility(pageNam, selector) {
+        this.idbService.getRecordFromObjStore('PageEligibilityData', pageNam).subscribe(
+            (pageData) => {
+                try {
+                    if (pageData) {
+                        if (pageData[0]['asset'][pageNam][selector].assetValue) {
+                            this.eligibility = pageData[0]['asset'][pageNam][selector].assetValue;
+                        } else {
+                            this.eligibility = pageData[0]['asset'][pageNam][selector].assetValue;
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error in calling service.', error);
+                    return false;
+                }
+            },
+            (error) => {
+                console.error('Error in calling service.', error);
+                return false;
+            });
+            return this.eligibility;
+    }
+}
+
+```
+
+```javascript
+/* tslint:disable:no-unused-variable */
+
+// widget-eligiblity.directive.spec.ts
+
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, DebugElement, CUSTOM_ELEMENTS_SCHEMA, Injectable, TemplateRef, ViewContainerRef } from '@angular/core';
+import { IDBService } from '../services/indexdb/idb.service';
+import { AppUtility } from '../utils/utility';
+import { Observable } from 'rxjs/Observable';
+import { DomStorageFallbackService } from '../services/DomStorageFallback.service';
+
+
+// Directive Imports
+// =============================
+import { WidgetEligibilityDirective } from './widget-eligiblity.directive';
+
+
+// MockData
+// =============================
+let mockData;
+
+let mockResponse = [{
+    "asset": {
+        "ag_login_params": {
+            "app-iva": {
+                "assetType": "ui",
+                "assetValue": "design",
+                "assetKey": "node"
+            }
+        }
+
+    }
+}];
+
+// MockComponent
+// =============================
+@Component({
+    template: `<demo-component *checkEligiblity="'app-iva'"></demo-component> `
+})
+class MockComponent {
+    constructor() { }
+}
+
+
+fdescribe('CheckEligibilityDirective', () => {
+    let component: MockComponent;
+    let fixture: ComponentFixture<MockComponent>;
+    let inputEl: DebugElement;
+    let directive: any;
+    let testBedService: IDBService;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [
+                MockComponent,
+                CheckEligibilityDirective
+            ],
+            providers: [
+                DomStorageFallbackService,
+                CheckEligibilityDirective,
+                TemplateRef,
+                ViewContainerRef,
+                { provide: AppUtility, useClass: MockAppUtilityService },
+                { provide: IDBService, useClass: MockIDBService },
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        });
+
+        fixture = TestBed.createComponent(MockComponent);
+        component = fixture.componentInstance;
+        testBedService = TestBed.get(IDBService);
+
+        // let inputElement: DebugElement = fixture.debugElement.query(By.directive(WidgetEligibilityDirective));
+        // directive = fixture.debugElement.injector;
+
+        fixture.detectChanges();
+
+    }));
+
+    it('should call checkEligibility() function with valid data', () => {
+        mockData = mockResponse;
+    });
+
+    it('should call checkEligibility() function with assetValue = null', () => {
+        mockResponse[0]['asset']['ag_login_params']['app-iva'].assetValue = null;
+        mockData = mockResponse
+    });
+
+    it('should call checkEligibility() function : cover catch block', () => {
+        mockData = "test";
+    });
+
+    it('should call checkEligibility() function with error : Cover subscribe error block', () => {
+        mockData = null;
+    });
+
+});
+
+
+// Mock IndexedDB Services
+// ==============================
+@Injectable()
+class MockIDBService {
+    cc = false;
+    constructor() { }
+
+    public getRecordFromObjStore(store, pageNam): any {
+
+        if (mockData) {
+            return Observable.of(mockData);
+        } else {
+            return Observable.throw('Error in calling getRecordFromObjStore() from idb service.');
+        }
+    }
+}
+
+
+// Mock appUtility Services
+// ==============================
+@Injectable()
+class MockAppUtilityService {
+    constructor() { }
+
+    public getPageNameFromURL(): any {
+        return 'login';
+    }
+
+}
+```
+
+### Attribute Directive unit testing
+
+```javascript
+// tab-accessibility.directive.ts
+
+import { Directive, ElementRef, AfterViewInit, Renderer2 } from '@angular/core';
+
+@Directive({
+    selector: '[alTabAccessibility]'
+})
+export class AlTabAccessibilityDirective implements AfterViewInit {
+
+    public tabs = [];
+    public tabOrientation: any;
+
+    // Key reference
+    public keys = {
+        end: 35,
+        home: 36,
+        left: 37,
+        up: 38,
+        right: 39,
+        down: 40,
+        delete: 46
+    };
+
+    constructor(private el: ElementRef, private renderer: Renderer2) { }
+
+    ngAfterViewInit() {
+        let tabs: any;
+
+        let tabNav = this.el.nativeElement.querySelector('ul[role="tablist"]:first-child');
+        tabs = tabNav.querySelectorAll('li');
+
+        this.tabs = Array.from(tabs);
+
+        this.tabOrientation = this.el.nativeElement.getAttribute('orientation');
+
+        if (this.tabs && this.tabs.length > 0) {
+            this.tabs.forEach((item, index) => {
+                item.addEventListener('keydown', this.keydownEventListener.bind(this));
+                item.index = index;
+            });
+        }
+    }
+
+    // Handle keydown on tabs
+    keydownEventListener(event: any) {
+        const key = event.keyCode;
+
+        switch (key) {
+            // On press of "End" key -> Activate last tab
+            // case this.keys.end:
+            //     event.preventDefault();
+            //     this.activateTab(this.tabs[this.tabs.length - 1]);
+            //     break;
+
+            // // On press of "Home" key -> Activate first tab
+            // case this.keys.home:
+            //     event.preventDefault();
+            //     this.activateTab(this.tabs[0]);
+            //     break;
+
+            // // up and down arrow keys in keydown event
+            // // when Tab orientation or alignment is vertical ( on Left or Right )
+            // case this.keys.up:
+            //     // because we need to prevent page scroll >:)
+            //     if (this.tabOrientation) {
+            //         event.preventDefault();
+            //         this.activatePrevTab(event);
+            //     }
+            //     break;
+
+            // case this.keys.down:
+            //     // because we need to prevent page scroll >:)
+            //     if (this.tabOrientation) {
+            //         event.preventDefault();
+            //         this.activateNextTab(event);
+            //     }
+            //     break;
+
+            // left and right arrow keys in keydown event
+            // when Tab orientation or alignment is horizontal ( on Top or Bottom )
+            case this.keys.left:
+                if (!this.tabOrientation) {
+                    this.activatePrevTab(event);
+                }
+                break;
+
+            case this.keys.right:
+                if (!this.tabOrientation) {
+                    this.activateNextTab(event);
+                }
+                break;
+        }
+    }
+
+    // Activates any given tab panel
+    activateTab(tab: any, setFocus?: boolean) {
+        setFocus = setFocus || true;
+
+        // Display tab content by executing click event, when tab gets focus
+        // tab.click();
+
+        // Set focus when required
+        if (setFocus) {
+            tab.querySelector('a').focus();
+        }
+    }
+
+    // Activate previous tab on press of "Left" arrow key
+    activatePrevTab(event: any) {
+        const index = event.target.parentNode.index;
+        if ((index - 1) === (this.tabs.length)) {
+            this.activateTab(this.tabs[0]);
+        } else if (index === 0) {
+            this.activateTab(this.tabs[(this.tabs.length - 1)]);
+        } else {
+            this.activateTab(this.tabs[(index - 1)]);
+        }
+    }
+
+    // Activate next tab on press of "Right" arrow key
+    activateNextTab(event: any) {
+        const index = event.target.parentNode.index;
+        if ((index + 1) === (this.tabs.length)) {
+            this.activateTab(this.tabs[0]);
+        } else {
+            this.activateTab(this.tabs[(index + 1)]);
+        }
+    }
+
+}
+
+// Keyboard Support ( https://www.w3.org/TR/2017/NOTE-wai-aria-practices-1.1-20171214/examples/tabs/tabs-1/tabs.html )
+// Key          function
+// ========     ========================================================
+// Tab	        When focus moves into the tab list, places focus on the active tab element.
+//              When the tab list contains the focus, moves focus to the next element in the tab sequence, which is the tabpanel element.
+// Right Arrow	Moves focus to the next tab.
+//              If focus is on the last tab, moves focus to the first tab.
+//              Activates the newly focused tab.
+// Left Arrow	Moves focus to the previous tab.
+//              If focus is on the first tab, moves focus to the last tab.
+//              Activates the newly focused tab.
+// Home         Moves focus to the first tab and activates it.
+// End          Moves focus to the last tab and activates it.
+```
+
+```javascript
+/* tslint:disable:no-unused-variable */
+
+// tab-accessibility.directive.spec.ts
+
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { Component, DebugElement, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+import { AlTabAccessibilityDirective } from './tab-accessibility.directive';
+
+@Component({
+    template: `<p-tabview alTabAccessibility>
+	<div class="ui-tabview ui-widget ui-widget-content ui-corner-all ui-tabview-top">
+		<ul p-tabviewnav="" role="tablist" class="ui-tabview-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+      <li role="tab" class="ui-state-default ui-corner-top ui-tabview-selected ui-state-active" aria-expanded="true" aria-selected="true">
+        <a href="#">
+          <span class="ui-tabview-title">Tab I</span>
+        </a>
+      </li>
+      <li role="tab" class="ui-state-default ui-corner-top">
+        <a href="#">
+          <span class="ui-tabview-title">Tab II</span>
+        </a>
+      </li>
+    </ul>
+
+		<div class="ui-tabview-panels">
+			<div class="ui-tabview-menu">
+				<a class="ui-tabview-menu-link" href="javascript:void(0);">Choose an Option</a>
+			</div>
+			<p-tabpanel header="Tab I">
+				<div class="ui-tabview-panel ui-widget-content" role="tabpanel" style="display: block;" aria-hidden="false">
+					The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son
+					ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's
+					life the nature of the family business becomes clear. The business of the family is just like the head of the family,
+					kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the
+					good of the family.
+				</div>
+			</p-tabpanel>
+			<p-tabpanel header="Tab II">
+				<div class="ui-tabview-panel ui-widget-content" role="tabpanel" style="display: none;" aria-hidden="true">
+					Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito
+					Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the
+					American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills
+					his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy,
+					killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone,
+					Vito's communal stature grows.
+				</div>
+			</p-tabpanel>
+		</div>
+	</div>
+</p-tabview>`
+})
+class MockTabsComponent {
+}
+
+describe('AlTabAccessibilityDirective', () => {
+    let component: MockTabsComponent;
+    let fixture: ComponentFixture<MockTabsComponent>;
+    let inputEl: DebugElement;
+    let directive: any;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [
+                MockTabsComponent,
+                AlTabAccessibilityDirective
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        });
+
+        fixture = TestBed.createComponent(MockTabsComponent);
+        component = fixture.componentInstance;
+        let inputElement: DebugElement = fixture.debugElement.query(By.directive(AlTabAccessibilityDirective));
+        directive = inputElement.injector.get(AlTabAccessibilityDirective);
+
+        inputEl = fixture.debugElement.query(By.css('ul[role="tablist"]:first-child'));
+        fixture.detectChanges();
+    }));
+
+    it('should call ngAfterViewInit()', () => {
+        directive.ngAfterViewInit();
+    });
+
+    // Left arrow key press event
+    // ========================================
+    it('should call keydownEventListener() tabOrientation should be available for left arrow key', () => {
+        directive.tabOrientation = 'left';
+        expect(directive.tabOrientation).toBe('left');
+        const event = {
+            keyCode: 37,
+            target: {
+                parentNode: {
+                    index: 0
+                }
+            }
+        };
+        directive.keydownEventListener(event);
+    });
+
+    it('should call keydownEventListener() for left arrow key', () => {
+        const event = {
+            keyCode: 37,
+            target: {
+                parentNode: {
+                    index: 0
+                }
+            }
+        };
+        directive.keydownEventListener(event);
+    });
+
+    it('should call keydownEventListener() index should be equal to tabs length', () => {
+        const event = {
+            keyCode: 37,
+            target: {
+                parentNode: {
+                    index: 1
+                }
+            }
+        };
+        directive.keydownEventListener(event);
+    });
+
+
+    // Right arrow key press event
+    // ========================================
+    it('should call keydownEventListener() tabOrientation should be available for right arrow key', () => {
+        directive.tabOrientation = 'left';
+        expect(directive.tabOrientation).toBe('left');
+        const event = {
+            keyCode: 39,
+            target: {
+                parentNode: {
+                    index: 0
+                }
+            }
+        };
+        directive.keydownEventListener(event);
+    });
+
+    it('should call keydownEventListener() for right arrow key', () => {
+        const event = {
+            keyCode: 39,
+            target: {
+                parentNode: {
+                    index: 0
+                }
+            }
+        };
+        directive.keydownEventListener(event);
+    });
+
+    it('should call keydownEventListener() index should be equal to tabs length', () => {
+        const event = {
+            keyCode: 39,
+            target: {
+                parentNode: {
+                    index: 1
+                }
+            }
+        };
+        directive.keydownEventListener(event);
+    });
+
 });
 ```
 

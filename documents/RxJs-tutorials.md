@@ -640,3 +640,128 @@ return Observable.of(this.domStorageFB.getItem('MY_DATA', 'localStorage'))
     })
     .retryWhen(errors => errors.delay(1000).take(3)); // Try three more time ( 1 default + 3 Retry at delay of 1000ms )
 ```
+
+### RxJS : Use of retryWhen with localStorage or sessionStorage + indexedDb data
+
+```javascript
+bindEventsToHTMLNodes(elements: any): Observable<any> {
+    return Observable.of(elements)
+        .map(result => {
+            if (!result) {
+                throw new Error('Retrying to get aui tooltip items...');
+            }
+
+            return result;
+        })
+        .retryWhen((errors) => errors.delay(1000).take(6));
+}
+
+getDataFromDOMStorage(elements: any): Observable<any> {
+    // Method 1
+    // =============================
+    return Observable.of(elements)
+        .map(result => {
+            // 1. Get data from localStorage and/or sessionStorage
+            // =======================================
+            /* const data = localStorage.getItem('name');
+            if (!data) {
+                throw new Error('Retrying...');
+            }
+            return data; */
+
+            // 2. Get data from indexedDb
+            // =======================================
+            if (!this.indexedDbService.getRecordFromObjStore('StoreName', 'KeyName')) {
+                throw new Error('Retrying...');
+            }
+
+            this.indexedDbService.getRecordFromObjStore('StoreName', 'KeyName').subscribe(data => {
+                console.log('IndexedDB data : ', data);
+            });
+
+            return this.indexedDbService.getRecordFromObjStore('StoreName', 'KeyName');
+
+        })
+        .retryWhen((errors) => errors.delay(1000).take(6));
+
+    // Method 2
+    // ==============================
+    /* return Observable.of(elements)
+          .switchMap(result => this.indexedDbService.getRecordFromObjStore('StoreName', 'KeyName'))
+          // .concatMap(result => this.indexedDbService.getRecordFromObjStore('StoreName', 'KeyName'))
+          .retryWhen((errors) => errors.delay(1000).take(6)); */
+}
+
+// USAGE
+// ======================
+this.bindEventsToHTMLNodes(document.querySelectorAll('.tooltip')).subscribe((tooltipNodes: any) => {
+    if (tooltipNodes) {
+        [].forEach.call(tooltipNodes, (tooltip: any, index: number) => {
+            tooltip.addEventListener('click', (event: any) => {
+                console.log('Tooltip content clicked :', event);
+                // this.onDocumentClick(event);
+            });
+        });
+    }
+});
+
+this.getDataFromDOMStorage(localStorage.getItem('name')).subscribe((data: any) => {
+    if (data) {
+        console.log('Final Data = ', data);
+    }
+}, (error: any) => {
+    if (console) {
+        console.log('Error in getDataFromDOMStorage :', error);
+    }
+}, () => {
+    if (console) {
+        console.log('getDataFromDOMStorage completed.');
+    }
+});
+```
+
+### RxJs 6 imports
+
+https://github.com/alshoja/Rxjs-Angular-8/blob/master/src/app/app.component.ts
+
+```javascript
+import { timer, of, forkJoin, Observable, Subject, interval, concat, from, fromEvent } from 'rxjs';
+import { switchMap, takeUntil, catchError, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { filter, map, flatMap } from 'rxjs/operators';
+```
+
+#### Import paths
+
+If you're a TypeScript developer, it's recommended that you use rxjs-tslint to refactor your import paths.
+
+For JavaScript developers, the general rule is as follows:
+
+rxjs: Creation methods, types, schedulers and utilities
+
+```javascript
+import { Observable, Subject, asapScheduler, pipe, of, from, interval, merge, fromEvent, SubscriptionLike, PartialObserver } from 'rxjs';
+```
+
+rxjs/operators: All pipeable operators:
+
+```javascript
+import { map, filter, scan } from 'rxjs/operators';
+```
+
+rxjs/webSocket: The web socket subject implementation
+
+```javascript
+import { webSocket } from 'rxjs/webSocket';
+```
+
+rxjs/ajax: The Rx ajax implementation
+
+```javascript
+import { ajax } from 'rxjs/ajax';
+```
+
+rxjs/testing: The testing utilities
+
+```javascript
+import { TestScheduler } from 'rxjs/testing';
+```
