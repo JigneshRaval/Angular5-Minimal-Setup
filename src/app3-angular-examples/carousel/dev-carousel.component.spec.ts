@@ -24,8 +24,8 @@ describe('Component: DevCarouselComponent', () => {
         // get test component from the fixture
         component = fixture.componentInstance;
         el = fixture.debugElement.nativeElement.firstElementChild.firstElementChild;
-        dotsEl = fixture.debugElement.queryAll(By.css('.al-carousel__dot'));
-        slidesEl = fixture.debugElement.queryAll(By.css('.al-carousel__slide'));
+        dotsEl = fixture.debugElement.queryAll(By.css('.carousel__dot'));
+        slidesEl = fixture.debugElement.queryAll(By.css('.carousel__slide'));
 
         it('should create', () => {
             expect(component).toBeTruthy();
@@ -80,13 +80,13 @@ describe('Component: DevCarouselComponent', () => {
         });
 
         it('should get uuid value', function () {
-            expect(component.uuid).toBe('al-carousel_9mpy8ouiu46');
+            expect(component.uuid).toBe('carousel_9mpy8ouiu46');
         });
 
         it('Should set uuid value', () => {
             component.uuid = '9mpy4oriu46';
             fixture.detectChanges();
-            expect(component._uuid).toBe('al-carousel_9mpy8ouiu46');
+            expect(component._uuid).toBe('carousel_9mpy8ouiu46');
         });
 
         it('should call _updateCurrentSlideDot() function', function () {

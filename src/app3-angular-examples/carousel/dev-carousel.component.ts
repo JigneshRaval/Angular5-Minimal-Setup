@@ -51,6 +51,8 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @Input() autoPlay: boolean = true;
 
+    @Input() fitToContent: boolean = false;
+
     @Input() carouselDataItems: any[];
 
     @Input() autoPlayInterval: number = 3000;
@@ -106,6 +108,7 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.allSlides) {
             if (this.slideTransitionDuration) {
                 [].forEach.call(this.allSlides, (slide, index) => {
+                    this.renderer.setAttribute(slide, 'aria-roledescription', 'slide');
                     this.renderer.setStyle(slide, 'animation-duration', Number(this.slideTransitionDuration) + 's');
                 });
             }
@@ -123,7 +126,6 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
         // starting obj
         this._updateCurrentSlideObj();
 
-        /* istanbul ignore if */
         if (this.currentSlideObject) {
             this.renderer.addClass(this.currentSlideObject, 'active');
             this.renderer.setAttribute(this.currentSlideObject, 'aria-hidden', 'false');
@@ -133,7 +135,6 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
         this.animationEnd = this.whichAnimationEvent();
 
         // add swipe detection
-        /* istanbul ignore if */
         if (this.lengthOfSlides > 1) {
             this._swipeSetup();
 
@@ -141,6 +142,11 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.playSlideShow();
             }
             this.cdr.detectChanges();
+        }
+
+        // check for content box and set maximum height there
+        if (this.fitToContent) {
+            this.adjustContenCarouselHeight();
         }
 
     }
@@ -157,7 +163,6 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
         // update dots
         if (this.dots) {
             for (let i = 0; i < this.dots.length; i++) {
-                /* istanbul ignore next */
                 if (i === this.slideIndex) {
                     this.renderer.addClass(this.dots[this.slideIndex], 'active');
                     this.renderer.setAttribute(this.dots[this.slideIndex], 'aria-selected', 'true');
@@ -173,7 +178,6 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
     // slide Carousel one item to _L
     slideLeft() {
         // if index == 0, set to length, else index--
-        /* istanbul ignore if */
         if (this.slideIndex === 0) {
             this.slideIndex = this.lengthOfSlides - 1;
         } else {
@@ -185,7 +189,6 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
     // slide Carousel one item to _R
     slideRight() {
         // if index == max, set to 0, else index++
-        /* istanbul ignore if */
         if (this.slideIndex === this.lengthOfSlides - 1) {
             this.slideIndex = 0;
         } else {
@@ -226,7 +229,6 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // Go to specific slide
     goToSlide(event) {
-        /* istanbul ignore if */
         if (event && event.target && event.target.nodeName === 'A') {
             this.pauseSlideShow(event);
             let jumpTo = parseInt(event.target.getAttribute('data-slide-index'), 10);
@@ -245,7 +247,6 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
     // Accessiility : Navigate between slides using Left and right arrow keys
     onKeyDownGoToSlide(event) {
         this.pauseSlideShow(event);
-        /* istanbul ignore if */
         if (event && event.target && event.target.nodeName === 'A') {
             if (event.keyCode === 37) {
                 // Left Arrow Key
@@ -260,7 +261,6 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
     // Accessiility : Set various ARIA roles and properties
     setARIAProps() {
         let slides = this.carouselContainer.querySelectorAll('.carousel__slide');
-        /* istanbul ignore if */
         if (slides) {
             for (let i = 0; i < slides.length; i++) {
                 slides[i].setAttribute('id', this._uuid + '_tabpanel_0_' + i);
@@ -281,7 +281,6 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
 	 * Main movement/animation fn. Applies next/prev & active classes to correct .carousel__slide's.
 	 * @param dir animation direction : To left or To right
 	 */
-    /* istanbul ignore next */
     _slide(dir) {
         // add preventDoubleTap to prevent double press
         let carousel = this.carouselContainer;
@@ -346,7 +345,7 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
         event.target.removeEventListener(this.animationEnd, this.completeAnimationHandlerForTargetSlide, true);
 
         // Emit event after slide change
-        this.afterSlideChange.emit({ event: event, ui: this, message: 'Slide change animation complete.' })
+        this.afterSlideChange.emit({ event: event, ui: this, message: 'Slide change animation complete.' });
     }
 
     // Remove animation event handlers from all the slides, on Click of Pause button
@@ -372,7 +371,6 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
             allowedTime = 400, // maximum time allowed to travel that distance
             elapsedTime,
             startTime;
-        /* istanbul ignore next */
         touchsurface.addEventListener('touchstart', function (e) {
             let touchobj = e.changedTouches[0];
             dist = 0;
@@ -380,7 +378,6 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
             startY = touchobj.pageY;
             startTime = new Date().getTime(); // record time when finger first makes contact with surface
         });
-        /* istanbul ignore next */
         touchsurface.addEventListener('touchend', function (e) {
             let touchobj = e.changedTouches[0];
             dist = touchobj.pageX - startX; // get total dist traveled by finger while in contact with surface
@@ -396,7 +393,6 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     _handleSwipe(dist) {
-        /* istanbul ignore if */
         if (dist <= 0) {
             this.slideRight();
         } else {
@@ -417,10 +413,25 @@ export class DevCarouselComponent implements OnInit, AfterViewInit, OnDestroy {
         };
 
         for (let t in animations) {
-            /* istanbul ignore if */
             if (el.style[t] !== undefined) {
                 return animations[t];
             }
+        }
+    }
+
+    // adjust maximum height when carousel contains content
+    public adjustContenCarouselHeight() {
+        if (this.carouselContainer) {
+            let maxHeight = 0;
+            Array.from(this.carouselContainer.querySelectorAll('.carousel__slide')).forEach(function (item: HTMLElement) {
+                if (item.scrollHeight > maxHeight) {
+                    maxHeight = item.scrollHeight;
+                }
+            });
+            if (console) {
+                console.log('max height for content carousel : ', maxHeight);
+            }
+            this.carouselContainer.querySelector('.carousel__slides').style.height = maxHeight + 'px';
         }
     }
 
